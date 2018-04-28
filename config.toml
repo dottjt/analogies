@@ -1,0 +1,8 @@
+baseURL = "https://analogies.io/"
+languageCode = "en-us"
+title = "Analogies.io"
+
+theme = "reade"
+
+[permalinks]
+  module = "/:title/"

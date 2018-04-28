@@ -1,0 +1,40 @@
+
+
+.introduction, .self-awareness {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  font-family: 'Arial';
+
+  overflow: hidden;
+}
+
+.section {
+  height: 85vh;
+  width: 700px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 4rem;
+
+  h1, h2, h3 {
+    font-weight: 100;
+    text-align: center;
+  }
+
+  h2 {
+    line-height: 2.5rem;
+  } 
+
+  h3 {
+    line-height: 2rem;
+  }
+
+  .graph {
+    border-bottom: 1px solid grey;
+  }
+}

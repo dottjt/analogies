@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>https://analogies.io/modules/neutral/</loc>
+    <lastmod>2018-04-28T18:09:17+10:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://analogies.io/modules/point-of-view/</loc>
+    <lastmod>2018-04-28T18:09:08+10:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://analogies.io/modules/attention/</loc>
+    <lastmod>2018-04-28T18:09:05+10:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://analogies.io/modules/gratitude/</loc>
+    <lastmod>2018-04-28T18:09:01+10:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://analogies.io/modules/introduction/</loc>
+    <lastmod>2018-04-27T06:17:32+10:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://analogies.io/modules/self-awareness/</loc>
+    <lastmod>2018-04-27T06:17:32+10:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://analogies.io/about/</loc>
+  </url>
+  
+  <url>
+    <loc>https://analogies.io/</loc>
+    <lastmod>2018-04-28T18:09:17+10:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://analogies.io/categories/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://analogies.io/modules/</loc>
+    <lastmod>2018-04-28T18:09:17+10:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://analogies.io/tags/</loc>
+    <priority>0</priority>
+  </url>
+  
+</urlset>

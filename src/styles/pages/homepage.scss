@@ -1,0 +1,10 @@
+.modules {
+  display: flex;
+  flex-wrap: wrap;
+
+  list-style: none;
+
+  .module {
+    flex: 1/3;
+  }
+}
