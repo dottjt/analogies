@@ -2,14 +2,12 @@
 title = "Introduction"
 date = 2018-04-27T06:17:32+10:00
 draft = false
-type ="module"
 +++
 
-<div class="introduction">
-
+<div class="module">
   <div class="section">
     <h1>This is your brain.</h1>
-    <div class="graph" id="normalBrain"></div>    
+    <div class="graph" id="normalBrain"></div>
   </div>
 
   <div class="section">
@@ -24,7 +22,7 @@ type ="module"
 
   <div class="section">
     <h2>In order to make informed decisions.</h2>
-    <h3>(i.e. dance to your favourite 90s' mixtape)</h3>
+    <h3>(i.e. dance to your favourite 90s' mixtape).</h3>
   </div>
 
   <div class="section">
@@ -53,16 +51,12 @@ type ="module"
   </div>  
 
   <div class="section">
-    <h2>Essentially...</h2>
+    <h2>Essentially.</h2>
   </div>
   
   <div class="section">
-    <h2>A balance of clarity and direction is required to function sustainably.</h2>
+    <h2>A balance of both clarity and direction is required to function sustainably.</h2>
     <div class="graph" id="normalBrainTwo"></div>    
-  </div>
-
-  <div class="section">
-    <h2>Please don't forget this.</h2>
   </div>
   
   <div class="section">
@@ -82,7 +76,7 @@ type ="module"
   </div>
 
   <div class="section">
-    <h2>Well, we can end up developing mental illness.</h2>
+    <h2>We can end up developing mental illness.</h2>
     <div class="graph" id="mentalIllnessBrain"></div>    
   </div>
 
@@ -92,18 +86,16 @@ type ="module"
   </div>
 
   <div class="section">
-    <h2>Of course, there are solutions.</h2>
-    <h3>(and this website only elaborates on one of them).</h3>
+    <h2>Thankfully, there are solutions.</h2>
   </div>
 
   <div class="section">
-    <h2>This solution is self-awareness.</h2>
+    <h2>The solution I'm going to talk about in this course is called self-awareness.</h2>
   </div>
 
   <div class="section">
     <h2>Self-awareness is the process of being able to control your mind.</h2>
-    <h3>(intentionally, with purpose).</h3>
-    <div class="graph" id="selectiveClaritySlowerBrain"></div>
+    <div class="graph" id="selectiveClarityBrainSlower"></div>
   </div>
 
   <div class="section">
@@ -112,9 +104,8 @@ type ="module"
   </div>
 
   <div class="section">
-    <h3>Self-awareness is a collection of skills that anyone can develop, to better understand how they create imbalance in their minds.</h3>
     <h3>The next section explains what self-awareness is, as well as how it can help.</h3>
-    <a href="">Undesrtanding self-awareness</a>
+    <a href="/modules/self-awareness">Undesrtanding self-awareness</a>
   </div>
   
 </div>

@@ -1,150 +1,218 @@
 import * as PIXI from 'pixi.js';
 import * as CONSTANT from './constants';
-
 import moment from 'moment';
 
-// CREATE NEW GRAPH
 
 export default class BrainGraph {
+  constructor(name, options) {
 
-  constructor(name, timeFormat, graphObject) {
+    // GRAPH CONFIG 
     this.name = name;
-    this.timeFormat = timeFormat;
-    this.graphObject = graphObject;
-    
-    this.app = new PIXI.Application(600, 160, { antialias: true, backgroundColor: 0xffffff });
+    this.graphAttributes = options;
+    this.previousTime = moment().format("x");
+    this.previousTimeComparison = moment();
+    this.domElement = document.querySelector(`#${this.name}`);
 
-    this.container = new PIXI.Container();
-    this.container.x = 0;
-    this.container.y = this.app.screen.height;
-    this.app.stage.addChild(this.container);
+    // GRAPH ATTRIBUTES CONFIG 
+    this.colour = this.graphAttributes.colour;
+    this.colourFunction = this.graphAttributes.colourFunction;
+    this.height = this.graphAttributes.height;
+    this.heightFunction = this.graphAttributes.heightFunction;
+    this.frequency = this.graphAttributes.frequency;
+    this.frequencyFunction = this.graphAttributes.frequencyFunction;
+    this.speed = this.graphAttributes.speed;
+    this.speedFunction = this.graphAttributes.speedFunction;
+    this.distribution = this.graphAttributes.distribution;
+    this.distributionFunction = this.graphAttributes.distributionFunction;
+    this.behaviour = this.graphAttributes.behaviour;
+    this.behaviourFunction = this.graphAttributes.behaviourFunction;
 
-    for (let i = 0; i < CONSTANT.numberOfElements; i++) {
-      var bar = new PIXI.Sprite(PIXI.Texture.WHITE);
-          bar.position.x = i * CONSTANT.positionConstant;
-          bar.tint = CONSTANT.whiteBarColour;
-          bar.width = CONSTANT.widthConstant;
-          bar.height = CONSTANT.heightConstant;
-          bar.anchor.set(1);
-      this.container.addChild(bar);
+    // CREATE GRAPH
+    this.app = new PIXI.Application(600, 160, { antialias: true, backgroundColor: 0xffffff });          
+
+    if (this.graphAttributes.hasGraph) {
+      // maybe the container is the problem and why interactivity isn't working. app should be the container?
+      this.container = new PIXI.Container();
+      this.container.x = 0;
+      this.container.y = this.app.screen.height;
+      this.app.stage.addChild(this.container);
+      for (let i = 0; i < CONSTANT.elementTotal; i++) {
+        var bar = new PIXI.Sprite(PIXI.Texture.WHITE);
+            bar.position.x = i * CONSTANT.positionConstant;
+            bar.tint = CONSTANT.whiteColour;
+            bar.width = CONSTANT.widthConstant;
+            bar.height = CONSTANT.heightConstant;
+            bar.anchor.set(1);
+            this.container.addChild(bar);
+      }
+      this.domElement.appendChild(this.app.view);
     }
 
-    this.previousTime = moment().format(this.timeFormat); 
+    // CONTROL PANEL CONFIG
+    this.changeSpeed = this.graphAttributes.changeSpeed;
+    this.identifyThoughts = this.graphAttributes.identifyThoughts;
+    this.changeFocus = this.graphAttributes.changeFocus;
+    this.balanceClarity = this.graphAttributes.balanceClarity;
 
-    document.querySelector(`#${name}`).appendChild(this.app.view);
+    // CREATE CONTROL PANEL
+    if (this.graphAttributes.hasControlPanel) {
+      let container = document.createElement('div');
+          container.classList.add("control__panel");
+
+      if (this.identifyThoughts.active) {
+        let radio = radio("identify__thoughts", 2);        
+        radio.children[0].children[0].oninput = function (event) { this.identifyThoughts() };        
+        container.appendChild(this.identifyThoughts());
+      }
+      if (this.changeFocus.active) {
+        container.appendChild(this.changeFocus()); 
+        container.children[0].children[0].oninput = function (event) { this.changeFocus() };                
+      }
+      if (this.speed.active) {
+        let radio = radio("change__speed", 2);
+        container.children[0].children[0].oninput = function (event) { this.changeSpeed() };
+        container.appendChild(radio);        
+      }
+      if (this.balanceClarity.active) {
+        container.appendChild(this.balanceClarity());
+      }
+      this.domElement.appendChild(container)
+    }
+
+    // SET ANIMATION
+    this.app.ticker.add(delta => {
+      let rateOfChange = this.previousTimeComparison.format("SSS") / 1000;
+      let randomColourIndex = Math.floor(Math.random() * this.colour.length);
+      let randomHeightIndex = Math.floor(Math.random() * this.height.length);
+        
+      if (this.previousTime + this.speedFunction(this.speed, rateOfChange) < this.previousTimeComparison.format("x")) {
+        for (let index = 0; index < CONSTANT.elementTotal; index++) {
+          this.container.children[index].tint = this.colourFunction(
+                                                this.colour,
+                                                index,
+                                                this.distributionFunction(this.distribution),
+                                                randomColourIndex,
+                                                rateOfChange,
+                                                this.behaviour,
+                                                this.behaviourFunction,
+                                              );
+
+          this.container.children[index].height = this.frequencyFunction(
+                                                this.frequency,
+                                                this.heightFunction(
+                                                  this.height,
+                                                  index,
+                                                  this.distributionFunction(this.distribution),
+                                                  randomHeightIndex,
+                                                  rateOfChange,
+                                                  this.behaviour,
+                                                  this.behaviourFunction,
+                                                ),
+                                                index,
+                                                this.behaviour,
+                                                this.behaviourFunction,
+                                              );
+        }
+        this.previousTime = moment();
+        this.previousTimeComparison = moment();
+      }  
+      this.previousTimeComparison = moment();
+    });
   }
 
-  brainActivity() {
-    if (this.previousTime < moment().format(this.timeFormat)) {
-      for (let i = 0; i < CONSTANT.numberOfElements; i++) {
-        this.container.children[i].height = this.graphObject.height();
-        this.container.children[i].tint = this.graphObject.colour();
-      }
-    }
-    this.previousTime = moment().format(this.timeFormat);
+
+  // CONTROL PANEL FUNCTIONS
+  
+  // change from normal to group.
+  identifyThoughts() {
+    this.colourFunction = HELPERS.multipleSections;
   }
 
-  // comparison, height
-  brainActivityInterval() {
-    if (this.previousTime < moment().format(this.timeFormat)) {
-      if(this.graphObject.comparison()) {
-        for (let i = 0; i < CONSTANT.numberOfElements; i++) {
-          this.container.children[i].height = this.graphObject.heightCondition();
-          this.container.children[i].tint = this.graphObject.colour();
-        }  
-      } else {
-        for (let i = 0; i < CONSTANT.numberOfElements; i++) {
-          this.container.children[i].height = this.graphObject.height();
-          this.container.children[i].tint = this.graphObject.colour();
-        }  
-      }
-    }
-    this.previousTime = moment().format(this.timeFormat);
+  // change focus - (create/select specific thoughts to show)
+  changeFocus() {
+    // basically it changes 
+    let container = this.sliderPanel("change__focus");
   }
 
-  // timeFormat, ratio,
-  // ratioType: randomMulti, randomSingle, nonRandom
-  brainActivitySections() {
-    if (this.previousTime < moment().format(this.timeFormat)) {
+  // change thought speed
+  changeSpeed(event) {
+    this.brainGraph.graphAttributes.timeFormat = "";
+  }
 
-      let { sectionOneTotal, sectionTwoTotal, } = colourRatio(this.graphObject.ratio(), this.graphObject.ratioType());
-      
-      if (this.graphObject.clearGraphAfterEachFrame()) {
-        for (let i = 0; i < 200; i++) {
-          this.container.children[i].height = 0;
-          this.container.children[i].tint = CONSTANT.whiteBarColour;
-        }
-      }
-
-      if (this.graphObject.ratioType() === "randomMulti") {
-        let randomNumber = Math.random();
-
-        if (randomNumber < 0.33) {
-          for (let i = 0; i < sectionOneTotal; i++) {
-            this.container.children[i].height = this.graphObject.sectionArray[0].height();        
-            this.container.children[i].tint = this.graphObject.sectionArray[0].colour();
-          }  
-        }
-          
-        if (randomNumber > 0.33 && randomNumber < 0.66) {
-          for (let i = sectionOneTotal; i < sectionTwoTotal; i++) {
-            this.container.children[i].height = this.graphObject.sectionArray[1].height();        
-            this.container.children[i].tint = this.graphObject.sectionArray[1].colour();
-          }  
-        }  
-
-        if (randomNumber > 0.66) {
-          for (let i = sectionTwoTotal; i < 200; i++) {
-            this.container.children[i].height = this.graphObject.sectionArray[2].height();        
-            this.container.children[i].tint = this.graphObject.sectionArray[2].colour();
-          }  
-        }
-      }
-
-      if (this.graphObject.ratioType() !== "randomMulti") {
-        for (let i = 0; i < sectionOneTotal; i++) {
-          this.container.children[i].height = this.graphObject.sectionArray[0].height();        
-          this.container.children[i].tint = this.graphObject.sectionArray[0].colour();
-        }
-        for (let i = sectionOneTotal; i < sectionTwoTotal; i++) {
-          this.container.children[i].height = this.graphObject.sectionArray[1].height();        
-          this.container.children[i].tint = this.graphObject.sectionArray[1].colour();
-        }
-        for (let i = sectionTwoTotal; i < 200; i++) {
-          this.container.children[i].height = this.graphObject.sectionArray[2].height();        
-          this.container.children[i].tint = this.graphObject.sectionArray[2].colour();
-        }  
-      }
-      
+  // change clarity - change both height AND frequency.
+  balanceClarity() {
+    for(let i = 0; i < 3; i++) {
+      this.brainGraph.graphAttributes.sectionArray[i].height = () => heightVar[i];
     }
-    this.previousTime = moment().format(this.timeFormat);
+    return;
+
+    this.brainGraph.graphAttributes.height = () => heightVar;
   }
 }
 
 
-// FUNCTION HELPERS
 
-export const colourRatio = ([sectionOneRatio, sectionTwoRatio, sectionThreeRatio], ratioType) => {
-  if (ratioType === "randomSingle" || ratioType === "randomMulti") {
-    var sectionOneConstant = Math.random() * sectionOneRatio;
-    var sectionTwoConstant = Math.random() * sectionTwoRatio;
-    var sectionThreeConstant = Math.random() * sectionThreeRatio;
+// ELEMENT HELPERS
+
+const slider = (name, changeFunction) => {
+  let container = document.createElement('div');
+      container.classList.add(`${name}__slider`);
+      container.classList.add(`slider`);
+
+  let input = document.createElement('input');
+      input.setAttribute("type", "range");
+      input.setAttribute("min", "1");
+      input.setAttribute("max", "100");
+      input.setAttribute("value", "50");
+      input.classList.add(`${name}__slider__input`);
+      input.classList.add(`slider__input`);
+
+      container.appendChild(input);
+
+  return container;
+}
+
+const radio = (name, number, valuesArray) => {
+  let container = document.createElement('div');
+      container.classList.add(`${name}__radio`);
+      container.classList.add(`radio`);
+
+  for(let i = 0; i < number; i++) {
+    let input = document.createElement('input');
+        input.classList.add(`${name}__radio__input`);
+        input.setAttribute("type", "radio");
+        input.setAttribute("value", valuesArray[2]);  
+        input.classList.add(`radio__input`);
+
+        container.appendChild(input);
   }
+  return container;
+}
 
-  if (ratioType === "nonRandom") {
-    var sectionOneConstant = sectionOneRatio;
-    var sectionTwoConstant = sectionTwoRatio;
-    var sectionThreeConstant = sectionThreeRatio;
-  }
+const checkbox = (name) => {
+  let container = document.createElement('div');
+      container.classList.add(`checkbox`);
 
-  let totalConstant = sectionOneConstant + sectionTwoConstant + sectionThreeConstant;
-  
-  let sectionOneTotal = Math.floor(CONSTANT.numberOfElements * (sectionOneConstant / totalConstant));
-  let sectionTwoTotal = Math.floor(CONSTANT.numberOfElements * (sectionTwoConstant / totalConstant)) + Math.floor(CONSTANT.numberOfElements * (sectionOneConstant / totalConstant));
-  return {
-    sectionOneTotal,
-    sectionTwoTotal,
-  }  
+  let input = document.createElement('input');
+      input.setAttribute("type", "checkbox");
+      input.classList.add(`checkbox__${name}`);
+      input.classList.add(`checkbox__input`);
 
+      container.appendChild(input);
+
+  return container;
+}
+
+const button = (name) => {
+  let container = document.createElement('div');
+      container.classList.add(`button`);
+
+  let input = document.createElement('button');
+      input.classList.add(`button__${name}`);
+      input.classList.add(`button`);
+
+      container.appendChild(input);
+
+  return container;
 }
 
