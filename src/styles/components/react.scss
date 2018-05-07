@@ -1,0 +1,153 @@
+.checkbox__list {
+  width: 450px; 
+  max-width: 450px; 
+
+
+  .checkbox__item__disabled__true {
+    opacity: 0.4;
+  }
+
+  .checkbox__item__onclick__true {
+    position: relative;
+    top: 2px;
+    left: 3px;    
+    box-shadow: 0px 0px 0px 0px grey!important;
+  }
+
+  .checkbox__item {
+    display: flex;
+    align-items: center;
+    border: 1px solid black;
+    padding: 15px;
+    margin-bottom: 5px;
+    box-shadow: 2px 3px 0px 0px grey;
+  
+    .checkbox {
+      display:inline-block;
+      height: 22px;
+      width: 22px;
+      border: 1px solid black;
+      margin-right: 10px;
+      border-radius:50%;
+      -ms-transform: rotate(45deg); /* IE 9 */
+      -webkit-transform: rotate(45deg); /* Chrome, Safari, Opera */
+      transform: rotate(45deg);    
+    }
+
+    .checkbox:before{
+      content:"";
+      position: absolute;
+      width:3px;
+      height:9px;
+      background-color:#fff;
+      left:11px;
+      top:6px;
+    }
+
+    .checkbox:after{
+      content:"";
+      position: absolute;
+      width:3px;
+      height:3px;
+      background-color:#fff;
+      left:8px;
+      top:12px;
+    }
+
+    .checkbox__checked {
+      background: #c9ff00;
+    }
+
+    .text {
+      
+    }
+  }
+}
+
+
+
+.panel {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  border-radius: 3px;
+  width: 600px;
+
+  .slider__container {
+    display: flex;
+    flex-direction: column;
+    width: 275px; 
+    
+    margin-bottom: 1rem;
+    
+    .slider__input {
+    }
+  }
+
+  .radio__container {
+    margin-bottom: 1rem;
+
+    .radio__input {
+
+    }
+  }
+
+  .checkbox {
+    .checkbox__input {
+      
+    }
+  }
+
+  .button__container {
+    margin-bottom: 1rem;
+    
+    .button__input {
+
+    }
+  }
+}
+
+
+
+.lame__container {
+  display: flex;
+  
+  position: relative;
+  
+  overflow: hidden;
+  width: 600px;
+  height: 200px;
+  background: black;
+
+  h3 {
+    position: absolute;
+    left: 50%;
+    top: 40%;
+    width: 500px;
+    transform: translate(-50%);
+    font-size: 4rem;
+    color: white;
+  }
+
+  .lame__item {
+    min-width: 100px;
+    
+    transform: skew(-25deg);
+    position: relative;
+    left: -100px;
+    
+    animation: colour-expand 2.2s infinite ease-in;
+  }
+
+  @keyframes colour-expand {
+    0% {
+      border-left: 1px solid white; 
+    }
+    
+    100% {
+      border-left: 100px solid white;
+    }
+  }
+}
+
+

@@ -11,8 +11,8 @@ module.exports = {
     styles: "./src/styles/styles.js",
     introduction: "./src/pixi/introduction.js",
     selfAwareness: "./src/pixi/selfAwareness.js",
-    gratitude: "./src/pixi/gratitude.js",
-    attention: "./src/pixi/attention.js",
+    creatingDirection: "./src/pixi/creatingDirection.js",
+    identifyingDirection: "./src/pixi/identifyingDirection.js",
     three: "./src/three/three.js",
   },
   output: {
@@ -23,7 +23,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.(js|jsx)$/,
         use: 'babel-loader',
         exclude: [
           /node_modules/

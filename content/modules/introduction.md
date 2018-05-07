@@ -16,13 +16,29 @@ draft = false
   </div>
 
   <div class="section">
-    <h2>Collectively they provide us with direction.</h2>
+    <h2>Providing us with direction.</h2>
     <div class="graph" id="TOJBrainGroup"></div>
   </div>
 
   <div class="section">
-    <h2>In order to make informed decisions.</h2>
-    <h3>(i.e. dance to your favourite 90s' mixtape).</h3>
+    <h2>Which in turn, helps us make decisions.</h2>
+    <div class="introduction__checklist"></div>
+    <!-- <h3>(i.e. dance to your favourite 90s' mixtape).</h3> -->
+  </div>
+
+  <div class="section">
+    <h2>Allowing us to do all sorts of cool things.</h2>
+    <div class="lame__container">
+      <h3>You're lame.</h3>
+      <div class="lame__item"></div>
+      <div class="lame__item"></div>
+      <div class="lame__item"></div>
+      <div class="lame__item"></div>
+      <div class="lame__item"></div>
+      <div class="lame__item"></div>
+      <div class="lame__item"></div>
+      <div class="lame__item"></div>
+    </div>
   </div>
 
   <div class="section">
@@ -31,13 +47,23 @@ draft = false
   </div>
   
   <div class="section">
-    <h2>Clarity allows us to single out our <span class="thoughtColor">thoughts</span>, <span class="opinionColor">opinions</span> and <span class="judgementColor">judgements</span>.</h2>
+    <h2>Clarity itself doesn't do much alone.</h2>
+    <div class="graph" id="empty"></div>
+  </div>
+
+  <div class="section">
+    <h2>However when combined with direction, allows us to single out our <span class="thoughtColor">thoughts</span>, <span class="opinionColor">opinions</span> and <span class="judgementColor">judgements</span>.</h2>
     <div class="graph" id="selectiveClarityBrain"></div>
   </div>
 
   <div class="section">
-    <h2>In order to evaluate them.</h2>
-    <h3>(so we can decide to keep them or let them go).</h3>
+    <h2>In order to make informed decisions.</h2>
+    <!-- <h3>(so we can decide to keep them or let them go).</h3> -->
+    <div class="introduction__checklist__crossout"></div>
+  </div>
+
+  <div class="section">
+    <h2>...or whatever it is you want from life.</h2>
   </div>
 
   <div class="section">
@@ -51,17 +77,17 @@ draft = false
   </div>  
 
   <div class="section">
-    <h2>Essentially.</h2>
+    <h2>Basically.</h2>
   </div>
   
   <div class="section">
-    <h2>A balance of both clarity and direction is required to function sustainably.</h2>
+    <h2>A balance of both clarity and direction is required in order to function sustainably.</h2>
     <div class="graph" id="normalBrainTwo"></div>    
   </div>
   
   <div class="section">
     <h2>Too little direction.</h2>
-    <h3>(and we may feel helpless, lost and confused).</h3>
+    <h3>(and we may feel helpless, lost or confused).</h3>
     <div class="graph" id="emptyBrainTwo"></div>
   </div>
 
@@ -76,7 +102,7 @@ draft = false
   </div>
 
   <div class="section">
-    <h2>We can end up developing mental illness.</h2>
+    <h2>Well, we can end up developing mental illness.</h2>
     <div class="graph" id="mentalIllnessBrain"></div>    
   </div>
 
@@ -86,16 +112,15 @@ draft = false
   </div>
 
   <div class="section">
-    <h2>Thankfully, there are solutions.</h2>
+    <h2>Thankfully, mental illness is merely one configuration.</h2>
   </div>
 
   <div class="section">
-    <h2>The solution I'm going to talk about in this course is called self-awareness.</h2>
+    <h2>Instead, what this course will focus on is developing another potential option.</h2>
   </div>
 
   <div class="section">
-    <h2>Self-awareness is the process of being able to control your mind.</h2>
-    <div class="graph" id="selectiveClarityBrainSlower"></div>
+    <h2>Balance.</h2>
   </div>
 
   <div class="section">

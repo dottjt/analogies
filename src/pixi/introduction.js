@@ -1,102 +1,35 @@
+import ReactDOM from 'react-dom';
+import React from 'react';
+import { Checklist } from './react/components.jsx';
+
 import * as CONSTANT from './helpers/constants';
 import * as HELPERS from './helpers/helpers';
 
 import BrainGraph from './helpers/functions';
 
+ReactDOM.render(<Checklist crossout={false} />, document.querySelector('.introduction__checklist'));
+ReactDOM.render(<Checklist crossout={true} />, document.querySelector('.introduction__checklist__crossout'));
 
-new BrainGraph("normalBrain", HELPERS.normalBrainOptions);
-new BrainGraph("normalBrainTwo", HELPERS.normalBrainOptions);
-new BrainGraph("normalBrainThree", HELPERS.normalBrainOptions);
+new BrainGraph("normalBrain", HELPERS.normalBrain);
+new BrainGraph("normalBrainTwo", HELPERS.normalBrain);
+new BrainGraph("normalBrainThree", HELPERS.normalBrain);
 
-new BrainGraph("TOJBrain", HELPERS.options(HELPERS.normalBrainOptions, {
-  colour: [ CONSTANT.thoughtColour, CONSTANT.opinionColour, CONSTANT.judgementColour ],
-  colourFunction: HELPERS.multipleRandomOrder,
-}));
+new BrainGraph("TOJBrain", HELPERS.TOJBrain);
+new BrainGraph("TOJBrainGroup", HELPERS.TOJBrainGroup);
 
-new BrainGraph("TOJBrainGroup", HELPERS.options(HELPERS.normalBrainOptions, {
-  colour: [ CONSTANT.thoughtColour, CONSTANT.opinionColour, CONSTANT.judgementColour ],
-  colourFunction: HELPERS.multipleSections,
-  frequency: 1,
-}));
+new BrainGraph("emptySectionBrain", HELPERS.emptySectionBrain);
 
-new BrainGraph("emptySectionBrain", HELPERS.options(HELPERS.normalBrainOptions, {
-  colour: [ CONSTANT.thoughtColour, CONSTANT.whiteColour, CONSTANT.judgementColour ],
-  colourFunction: HELPERS.multipleSections,
-  distribution: [0, 80, 120, 200],
-  frequency: 0.8,
-}));
+new BrainGraph("selectiveClarityBrain", HELPERS.selectiveClarityBrain);
 
-new BrainGraph("selectiveClarityBrain", HELPERS.options(HELPERS.normalBrainOptions, {
-  colour: [ CONSTANT.thoughtColour, CONSTANT.opinionColour, CONSTANT.judgementColour ],
-  colourFunction: HELPERS.multipleSectionRandom,
-  distribution: [0, 80, 120, 200],
-  frequency: 1,
-}));
+new BrainGraph("overloadBrain", HELPERS.overloadBrain);
+new BrainGraph("overloadBrainTwo", HELPERS.overloadBrain);
 
-new BrainGraph("selectiveClarityBrainSlower", HELPERS.options(HELPERS.normalBrainOptions, {
-  colour: [ CONSTANT.thoughtColour, CONSTANT.opinionColour, CONSTANT.judgementColour ],
-  colourFunction: HELPERS.multipleSectionRandom,
-  distribution: [0, 80, 120, 200],
-  frequency: 1,
-  speed: 800,
-}));
+new BrainGraph("emptyBrain", HELPERS.emptyBrain);
+new BrainGraph("emptyBrainTwo", HELPERS.emptyBrain);
 
+new BrainGraph("emptyClarityBrain", HELPERS.emptyClarityBrain);
 
-new BrainGraph("overloadBrain", HELPERS.options(HELPERS.normalBrainOptions, {
-  colour: CONSTANT.thoughtColour,
-  frequency: 1,
-  frequencyFunction: HELPERS.jammingFrequency,
-}));
-
-new BrainGraph("overloadBrainTwo", HELPERS.options(HELPERS.normalBrainOptions, {
-  colour: CONSTANT.thoughtColour,
-  frequency: 1,
-  frequencyFunction: HELPERS.jammingFrequency,
-}));
-
-new BrainGraph("emptyBrain", HELPERS.options(HELPERS.normalBrainOptions, {
-    colour: CONSTANT.thoughtColour,
-    height: CONSTANT.heightConstantTiny,
-    frequency: CONSTANT.frequencyConstantTiny,
-  }
-));
-
-new BrainGraph("emptyBrainTwo", HELPERS.options(HELPERS.normalBrainOptions, {
-  colour: CONSTANT.thoughtColour,
-  height: CONSTANT.heightConstantTiny,
-  frequency: CONSTANT.frequencyConstantTiny,
-}));
-
-
-// new BrainGraph("emptyClarityBrain", HELPERS.options(HELPERS.normalBrainOptions, {
-//   colour: [ CONSTANT.thoughtColour, CONSTANT.opinionColour, CONSTANT.judgementColour ],
-//   colourFunction: HELPERS.multipleRandomOrder,
-
-//   frequency: [ CONSTANT.frequencyConstant, CONSTANT.frequencyConstantTiny ],
-//   frequencyFunction: HELPERS.multipleBehaviour,
-
-//   behaviourFunction: [ HELPERS.percentageShowFrequency, HELPERS.jammingFrequency ],
-
-//   height: [ CONSTANT.heightConstant, CONSTANT.heightConstantTiny ],
-//   heightFunction: HELPERS.multipleBehaviour,
-
-//   speed: 300,
-// }));
-
-// new BrainGraph("mentalIllnessBrain", HELPERS.options(HELPERS.mentalIllnessBrainOptions, {
-//   colour: [ CONSTANT.thoughtColour, CONSTANT.opinionColour, CONSTANT.judgementColour ],
-//   colourFunction: HELPERS.multipleRandomOrder,
-
-//   frequency: [ CONSTANT.frequencyConstant, CONSTANT.frequencyConstantTiny ],
-//   frequencyFunction: HELPERS.multipleBehaviour,
-
-//   height: [ CONSTANT.heightConstant, CONSTANT.heightConstantTiny ],
-//   heightFunction: HELPERS.multipleBehaviour,
-
-//   behaviourFunction: [ HELPERS.percentageShowFrequency, HELPERS.jammingFrequency ],
-  
-//   speed: 200,
-// }));
+new BrainGraph("mentalIllnessBrain", HELPERS.mentalIllnessBrain);
 
 
 

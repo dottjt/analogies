@@ -1,5 +1,5 @@
 +++
-title = "Gratitude"
+title = "Creating Direction"
 date = 2018-04-28T18:09:01+10:00
 draft = false
 +++
@@ -116,5 +116,5 @@ draft = false
 
 </div>  
 
-<script src="/assets/gratitude.js"></script>
+<script src="/assets/creatingDirection.js"></script>
 <script src="/assets/styles.js"></script>

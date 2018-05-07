@@ -1,5 +1,5 @@
 +++
-title = "Attention"
+title = "Identifying Direction"
 date = 2018-04-28T18:09:05+10:00
 draft = false
 +++
@@ -20,5 +20,5 @@ draft = false
     
 </div>
 
-<script src="/assets/attention.js"></script>
+<script src="/assets/identifyingDirection.js"></script>
 <script src="/assets/styles.js"></script>

@@ -7,36 +7,39 @@ draft = false
 <div class="module">
   <div class="section">
     <h1>This is self-awareness.</h1>
-    <div class="panel" id="allPanel"></div>
+    <div class="panel" id="selfAwarenessPanel"></div>
   </div>
   
   <div class="section">
     <h2>Self-awareness is an interface for your brain.</h2>
     <div class="graph" id="normalBrain"></div>
-    <div class="panel" id="allPanelTwo"></div>
+    <div class="panel" id="normalBrainPanel"></div>
   </div>
 
   <div class="section">
-    <h2>That allows you to control how it functions.</h2>
-    <div class="graph" id="selectiveClaritySlowerBrain"></div>
-    <div class="panel" id="allPanelThree"></div>
+    <h2>That allows you to control your mind.</h2>
+    <div class="graph" id="selectiveClarityBrainSlower"></div>
   </div>
 
   <div class="section">
-    <h2>I suppose the reason why it’s called self-awareness...</h2>
+    <h2>This course aims to teach you to identify these configurations.</h2>
   </div>
 
   <div class="section">
-    <h2>...is because you need to be aware of it in order to access it.</h2>
+    <h2>As well as how to adjust them in order to create balance in our minds.</h2>
   </div>
-  
+
   <div class="section">
-    <h2>Otherwise, all you really notice are the things happening inside your brain.</h2>
+    <h2>The reason why it’s called self-awareness, is because you need to identify your configuration before you can change it.</h2>
+  </div>
+
+  <div class="section">
+    <h2>Which is to say that many of us are not even aware of the control panel in our minds.</h2>
     <div class="graph" id="TOJBrain"></div>
   </div>
 
   <div class="section">
-    <h2>As opposed to the control panel sitting beside it.</h2>
+    <h2>Only the activity that takes place in our minds.</h2>
   </div>
 
   <div class="section">
@@ -123,6 +126,7 @@ draft = false
   <div class="section">
     <h2>And retain a calm and calculated state of mind.</h2>
   </div>
+
 
   <div class="section">
     <h3>The first exercise we will focus on is Gratitude.</h3>

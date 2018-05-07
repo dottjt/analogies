@@ -3,22 +3,31 @@ import * as HELPERS from './helpers/helpers';
 
 import BrainGraph from './helpers/functions';
 
-// new ControlPanel("allPanel", null, OPTIONS.allOptions);
+new BrainGraph("selfAwareness", HELPERS.options(HELPERS.normalBrainOptions, {
+  hasGraph: false,
+  hasControlPanel: true,
+  
+  changeSpeed: true,
+  organiseDirection: true,
+  // createDirection: true,
+  singleOutDirection: true,
+  balanceClarity: true,
+}));
 
-// let normalBrain = new BrainGraph("normalBrain", OPTIONS.normalBrainOptions);
-//                   new ControlPanel("allPanelTwo", normalBrain, OPTIONS.allOptions);
+new BrainGraph("normalBrain", HELPERS.options(HELPERS.normalBrain, {
+  hasControlPanel: true,
+  
+  changeSpeed: true,
+  organiseDirection: true,
+  // createDirection: true,
+  singleOutDirection: true,
+  balanceClarity: true,
+}));
 
-// let selectiveClaritySlowerBrain = new BrainGraph("selectiveClaritySlowerBrain", OPTIONS.selectiveClaritySlowerBrainOptions);
-//                                   new ControlPanel("allPanelThree", selectiveClaritySlowerBrain, OPTIONS.allOptions);
-                  
-// // new BrainGraph("TOJBrain", OPTIONS.TOJBrainOptions);
 
-// new BrainGraph("normalBrainSlower", options(OPTIONS.normalBrainOptions, { timeFormat: CONSTANT.timeFormatSeconds }));
-// new BrainGraph("emptySectionBrain", OPTIONS.emptySectionBrainOptions);
-// new BrainGraph("selectiveClaritySlowerBrainTwo", OPTIONS.selectiveClaritySlowerBrainOptions);
-// new BrainGraph("selectiveClarityBrain", OPTIONS.selectiveClarityBrainOptions);
-// new BrainGraph("mentalIllnessBrain", OPTIONS.mentalIllnessBrainOptions);
-
-// new BrainGraph("emptyClarityBrain", OPTIONS.emptyClarityBrainOptions);
-// new BrainGraph("overloadBrain", OPTIONS.overloadBrainOptions);
-// new BrainGraph("emptyBrain", OPTIONS.emptyBrainOptions);
+new BrainGraph("selectiveClarityBrainSlower", HELPERS.options(HELPERS.selectiveClarityBrain, { speed: 500 }));
+new BrainGraph("TOJBrain", HELPERS.TOJBrain);
+new BrainGraph("normalBrainSlower", HELPERS.options(HELPERS.normalBrain, { speed: 400 }));
+new BrainGraph("emptySectionBrain", HELPERS.emptySectionBrain);
+new BrainGraph("selectiveClarityBrain", HELPERS.selectiveClarityBrain);
+new BrainGraph("mentalIllnessBrain", HELPERS.mentalIllnessBrain);
