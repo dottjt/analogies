@@ -130,6 +130,90 @@ export const randomDistributionArray = (numberOfElements) => {
 }
 
 
+
+export const reducer = (state, action) => {
+  switch(action.type) {
+    case "ORGANISE_DIRECTION":
+        action.value === "scrambled" 
+      ?
+        { ...state, colour: [ CONSTANT.thoughtColour, CONSTANT.opinionColour, CONSTANT.judgementColour ], 
+                    colourFunction: singleRandom }
+      : 
+        { ...state, colour: CONSTANT.standardColour, 
+                    colourFunction: multipleSections }        
+
+    case "SINGLE_OUT_DIRECTION":
+      switch(action.value) {
+        case "all":
+          return { ...state, colour: CONSTANT.standardColour,
+                             colourFunction: singleRandom }
+          break;
+        case "thought":
+          return { ...state, colour: [ CONSTANT.thoughtColour, CONSTANT.whiteColour, CONSTANT.whiteColour ],
+                             colourFunction: multipleSections }
+          break;
+        case "opinion":
+          return { ...state, colour: [ CONSTANT.whiteColour, CONSTANT.opinionColour, CONSTANT.whiteColour ],
+                             colourFunction: multipleSections }
+          break;
+        case "judgement":
+          return { ...state, colour: [ CONSTANT.whiteColour, CONSTANT.whiteColour, CONSTANT.judgementColour ],
+                             colourFunction: multipleSections }
+          break;
+        default:
+          null;
+          break;
+      }
+
+    case "CHANGE_SPEED":
+      return {
+        ...state,
+        speed: action.value * 10,
+      };
+
+    case "CREATE_DIRECTION":
+      switch(action.value) {
+        case "gratitude":
+          return { ...state, colour: CONSTANT.gratitudeColour }
+          break;
+        case "clear":
+          return { ...state, colour: CONSTANT.whiteColour }
+          break;
+        default:
+          null;
+          break;
+      }
+
+      case "SELECT_RADIO_BUTTON_ORGANISE":
+        return {
+          ...state,
+          organiseDirectionItems: state.organiseDirectionItems.map(item => item.text === action.value ? { ...item, selected: true } : { ...item, selected: false } )
+        }
+      
+      case "SELECT_RADIO_BUTTON_SINGLE_OUT":
+        return {
+          ...state,
+          singleOutDirectionItems: state.singleOutDirectionItems.map(item => item.text === action.value ? { ...item, selected: true } : { ...item, selected: false } )
+        }
+
+    default:
+      return state;
+  }
+}
+
+
+// ACTIONS
+export const organiseDirection = (value) => ({ type: "ORGANISE_DIRECTION", value });
+export const createDirection = (value) => ({ type: "CREATE_DIRECTION", value });
+export const changeSpeed = (value) => ({ type: "CHANGE_SPEED", value });
+export const balanceClarity = (value) => ({ type: "BALANCE_CLARITY", value });
+export const singleOutDirection = (value) => ({ type: "SINGLE_OUT_DIRECTION", value });
+
+export const selectRadioButtonOrganise = (value) => ({ type: "SELECT_RADIO_BUTTON_ORGANISE", value });
+export const selectRadioButtonSingleOut = (value) => ({ type: "SELECT_RADIO_BUTTON_SINGLE_OUT", value });
+
+
+
 // GENERIC OPTIONS
 
 export const options = (options, additionalOptions = {}) => Object.assign({}, normalBrain, additionalOptions)
@@ -163,9 +247,36 @@ export const normalBrain = {
   distributionFunction: singleConstant,
 
   behaviour: [0.5, 1], // split timing
-  behaviourFunctionColour: [ CONSTANT.singleConstant ],
-  behaviourFunctionHeight: [ CONSTANT.singleConstant ],
-  behaviourFunctionFrequency: [ CONSTANT.singleConstant ],
+  behaviourFunctionColour: [ singleConstant ],
+  behaviourFunctionHeight: [ singleConstant ],
+  behaviourFunctionFrequency: [ singleConstant ],
+
+  singleOutDirectionItems: [{
+    text: "all",
+    selected: true,
+  },
+  {
+    text: "thought",
+    selected: false,
+  },
+  {
+    text: "opinion",
+    selected: false,
+  },
+  {
+    text: "judgement",
+    selected: false,            
+  }],
+
+  organiseDirectionItems: [{
+    text: "scrambled",
+    selected: true,
+  },
+  {
+    text: "organised",
+    selected: false,
+  }],
+
 }
 
 export const TOJBrain = options(normalBrain, {
@@ -233,88 +344,3 @@ export const mentalIllnessBrain = options(normalBrain, {
   speed: 40,
   speedFunction: sin,
 });
-
-
-
-
-// ELEMENT HELPERS
-
-// export const slider = (name, text) => {
-//   let container = document.createElement('div');
-//       container.classList.add(`${name}__slider`);
-//       container.classList.add(`slider`);
-
-//   let label = document.createElement('label');
-//       label.innerHTML = text;
-
-//   let input = document.createElement('input');
-//       input.setAttribute("type", "range");
-//       input.setAttribute("min", "1");
-//       input.setAttribute("max", "100");
-//       input.setAttribute("value", "50");
-//       input.classList.add(`${name}__slider__input`);
-//       input.classList.add(`slider__input`);
-
-//       container.appendChild(label);
-//       container.appendChild(input);
-
-//   return container;
-// }
-
-// export const radio = (name, number, valuesArray) => {
-//   let container = document.createElement('form');
-//       container.classList.add(`${name}__radio`);
-//       container.classList.add(`radio`);
-
-//   for(let i = 0; i < number; i++) {
-//     let radioContainer = document.createElement('div');
-//         radioContainer.classList.add("radio__item");
-
-//     let label = document.createElement('label');
-//         label.classList.add(`radio__label`);
-//         label.setAttribute("for", valuesArray[i]);
-//         label.innerHTML = valuesArray[i];
-//         radioContainer.appendChild(label);
-
-//     let input = document.createElement('input');
-//         input.classList.add(`${name}__radio__input`);
-//         input.setAttribute("type", "radio");
-//         input.setAttribute("name", name);
-//         input.setAttribute("value", valuesArray[i]);  
-//         input.setAttribute("id", valuesArray[i]);  
-//         input.classList.add(`radio__input`);
-
-//         radioContainer.appendChild(input);
-
-//         container.appendChild(radioContainer)
-//   }
-//   return container;
-// }
-
-// export const checkbox = (name) => {
-//   let container = document.createElement('div');
-//       container.classList.add(`checkbox`);
-
-//   let input = document.createElement('input');
-//       input.setAttribute("type", "checkbox");
-//       input.classList.add(`checkbox__${name}`);
-//       input.classList.add(`checkbox__input`);
-
-//       container.appendChild(input);
-
-//   return container;
-// }
-
-// export const button = (name, text) => {
-//   let container = document.createElement('div');
-//       container.classList.add(`button`);
-
-//   let input = document.createElement('button');
-//       input.classList.add(`button__${name}`);
-//       input.classList.add(`button__input`);
-//       input.innerHTML = text;
-
-//       container.appendChild(input);
-
-//   return container;
-// }

@@ -1,6 +1,160 @@
 import React from 'react';
-import { observer } from 'mobx-react';
-import PropTypes from "prop-types";
+import { connect } from 'react-redux';
+
+import * as HELPERS from '../helpers/helpers';
+
+
+class ControlPanel extends React.Component {
+  render() {
+    let { store } = this.props;
+
+    return (
+      <div className="panel">
+        { store.organiseDirection ?
+          <Radio
+            name="organise direction"
+            items={store.organiseDirectionItems}
+            clickFunction={this.props.organiseDirection}
+            selectFunction={this.props.selectRadioButtonOrganise}
+          />
+        : null }
+
+        { store.singleOutDirection ?
+          <Radio
+            name="change__focus"
+            items={store.singleOutDirectionItems}
+            clickFunction={this.props.singleOutDirection}
+            selectFunction={this.props.selectRadioButtonSingleOut}
+          />
+        : null }
+
+        { store.createDirection ?
+          <Button
+            name="create__direction"
+            text="create direction"
+            clickFunction={() => this.props.createDirection("gratitude")}
+          />
+        : null }
+
+        { store.changeSpeed ?
+          <Slider
+            name="change__speed"
+            text="change speed"
+            sliderFunction={this.props.changeSpeed}
+          />
+        : null }
+
+        { store.balanceClarity ?
+          <Slider
+            name="balance__clarity"
+            text="clarity balance"
+            sliderFunction={this.props.balanceClarity}
+          />
+        : null }
+      </div>
+    )
+  }
+}
+
+const mapStateToProps = store => {
+  return {
+    store,
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    organiseDirection: (value) => {
+      dispatch(HELPERS.organiseDirection(value))
+    },
+    createDirection: (value) => {
+      dispatch(HELPERS.createDirection(value))
+    },
+    changeSpeed: (value) => {
+      dispatch(HELPERS.changeSpeed(value))
+    },
+    balanceClarity: (value) => {
+      dispatch(HELPERS.balanceClarity(value))
+    },
+    singleOutDirection: (value) => {
+      dispatch(HELPERS.singleOutDirection(value))
+    },
+    selectRadioButtonOrganise: (value) => {
+      dispatch(HELPERS.selectRadioButtonOrganise(value))
+    },
+    selectRadioButtonSingleOut: (value) => {
+      dispatch(HELPERS.selectRadioButtonSingleOut(value))
+    },
+  }
+}
+
+export const ControlPanelContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ControlPanel);
+
+
+export class Slider extends React.Component {
+  render() {
+    let { name, text, sliderFunction } = this.props;
+    return (
+      <div className={`${name}__slider slider__container`}>
+        <label htmlFor={`${name}__slider`}>{text}</label>
+        <input 
+          className={`${name}__slider__input slider is-circle`}
+          name={`${name}__slider`}
+          type="range"
+          min="1"
+          max="100"
+          value="50"
+          onChange={(event) => sliderFunction(event.currentTarget.value)} 
+        />
+      </div>
+    )
+  }
+}
+
+export class Radio extends React.Component {
+
+  render() {
+    return (
+      <div className={`${this.props.text}__radio radio__container field has-addons`}>
+        {this.props.items.map((item) => {
+          let selected = item.selected ? "is-primary" : "is-primary is-outlined";
+          return (
+            <div key={item.text} className={`radio__item control`}>
+              <div className={`${selected} button`} onClick={() => { this.props.clickFunction(item.text); this.props.selectFunction(item.text) } }>
+                {item.text}
+              </div>
+            </div>
+          );
+        })
+        }
+      </div>
+    )
+  }
+}
+
+export class Button extends React.Component {
+  render() {
+    let { name, text, clickFunction } = this.props;
+
+    return (
+      <div className={`${name}__button button__container`}>
+          <button
+            className={`${name}__button__input button__input button is-primary`}
+            onClick={() => clickFunction()}
+          >
+          {text}
+          </button>
+      </div>
+    )
+  }
+}
+
+
+
+// EXTERNAL COMPONENTS
 
 export class Checklist extends React.Component {
   
@@ -70,107 +224,3 @@ const Checkbox = ({bool}) => (
     <div className="checkbox"></div>
   )
 )
-
-@observer
-export class Slider extends React.Component {
-  render() {
-    let { name, text, sliderFunction } = this.props;
-    return (
-      <div className={`${name}__slider slider__container`}>
-        <label htmlFor={`${name}__slider`}>{text}</label>
-        <input 
-          className={`${name}__slider__input slider is-circle`}
-          name={`${name}__slider`}
-          type="range"
-          min="1"
-          max="100"
-          value="50"
-          onChange={(event) => sliderFunction(event.currentTarget.value)} 
-        />
-      </div>
-    )
-  }
-}
-
-@observer
-export class Radio extends React.Component {
-
-  render() {
-    return (
-      <div className={`${this.props.text}__radio radio__container field has-addons`}>
-        {this.props.items.map((item) => {
-          let selected = item.selected ? "is-primary" : "is-primary is-outlined";
-          return (
-            <div key={item.text} className={`radio__item control`}>
-              <div className={`${selected} button`} onClick={() => { item.clickFunction(); item.selectFunction() } }>
-                {item.text}
-              </div>
-            </div>
-          );
-        })
-        }
-      </div>
-    )
-  }
-}
-
-@observer
-export class Button extends React.Component {
-  render() {
-    let { name, text, clickFunction } = this.props;
-
-    return (
-      <div className={`${name}__button button__container`}>
-          <button
-            className={`${name}__button__input button__input button is-primary`}
-            onClick={() => clickFunction()}
-          >
-          {text}
-          </button>
-      </div>
-    )
-  }
-}
-
-
-// class ControlPanel extends React.Component {
-//   render() {
-//     let { identifyThoughts, changeFocus, changeSpeed, balanceClarity } = this.props;
-    
-//     return (
-//       <div className={`${name}__slider slider`}>
-//         { 
-//           identifyThoughts
-//         ?
-          
-//         :
-//           null
-//         }
-
-//         { 
-//           changeFocus
-//         ?
-          
-//         :
-//           null
-//         }
-
-//         { 
-//           changeSpeed
-//         ?
-          
-//         :
-//           null
-//         }
-
-//         { 
-//           balanceClarity
-//         ?
-          
-//         :
-//           null
-//         }
-//       </div>
-//     )
-//   }
-// }
