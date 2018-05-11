@@ -45,7 +45,7 @@
 @function colorLuminance($color)
   $color-rgb: ('red': red($color),'green': green($color),'blue': blue($color))
   @each $name, $value in $color-rgb
-    $adjusted: 0
+    $balance: 0
     $value: $value / 255
     @if $value < 0.03928
       $value: $value / 12.92

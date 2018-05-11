@@ -1,6 +1,4 @@
 import * as CONSTANT from './constants';
-import moment from 'moment';
-
 
 // SINGLE FUNCTIONS
 
@@ -63,7 +61,6 @@ export const multipleBehaviourMultiple = (array, index, distributionArray, _rand
 }
 
 
-
 // TRANSFORM FUNCTIONS
 
 // frequency - random frequency based on a constant
@@ -95,15 +92,22 @@ export const multipleBehaviourFrequencyMultiple = (array, height, index, rateOfC
 
 // FILTER FUNCTIONS 
 
-// export const noFilter = (filter, colour) => colour;
-
-// export const filterInclude = (filter, colour) => {
-//   for (let i = 0; i < filter.length; i++) {
-//     if (filter[i] === colour[i] {
-      
-//     })
-//   }
-// };
+export const filterColour = (filterColour, colour) => {
+  if (Array.isArray(colour)) {
+    for (let i = 0; i < colour.length; i++) {
+      if (filterColour === colour[i]) {
+        return colour[i];
+      } else {
+        return CONSTANT.whiteColour;
+      }
+    }
+  }
+  if (filterColour === colour) {
+    return colour;
+  } else {
+    return CONSTANT.whiteColour;
+  }
+};
 
 
 // DISTRIBUTION FUNCTIONS
@@ -130,217 +134,3 @@ export const randomDistributionArray = (numberOfElements) => {
 }
 
 
-
-export const reducer = (state, action) => {
-  switch(action.type) {
-    case "ORGANISE_DIRECTION":
-        action.value === "scrambled" 
-      ?
-        { ...state, colour: [ CONSTANT.thoughtColour, CONSTANT.opinionColour, CONSTANT.judgementColour ], 
-                    colourFunction: singleRandom }
-      : 
-        { ...state, colour: CONSTANT.standardColour, 
-                    colourFunction: multipleSections }        
-
-    case "SINGLE_OUT_DIRECTION":
-      switch(action.value) {
-        case "all":
-          return { ...state, colour: CONSTANT.standardColour,
-                             colourFunction: singleRandom }
-          break;
-        case "thought":
-          return { ...state, colour: [ CONSTANT.thoughtColour, CONSTANT.whiteColour, CONSTANT.whiteColour ],
-                             colourFunction: multipleSections }
-          break;
-        case "opinion":
-          return { ...state, colour: [ CONSTANT.whiteColour, CONSTANT.opinionColour, CONSTANT.whiteColour ],
-                             colourFunction: multipleSections }
-          break;
-        case "judgement":
-          return { ...state, colour: [ CONSTANT.whiteColour, CONSTANT.whiteColour, CONSTANT.judgementColour ],
-                             colourFunction: multipleSections }
-          break;
-        default:
-          null;
-          break;
-      }
-
-    case "CHANGE_SPEED":
-      return {
-        ...state,
-        speed: action.value * 10,
-      };
-
-    case "CREATE_DIRECTION":
-      switch(action.value) {
-        case "gratitude":
-          return { ...state, colour: CONSTANT.gratitudeColour }
-          break;
-        case "clear":
-          return { ...state, colour: CONSTANT.whiteColour }
-          break;
-        default:
-          null;
-          break;
-      }
-
-      case "SELECT_RADIO_BUTTON_ORGANISE":
-        return {
-          ...state,
-          organiseDirectionItems: state.organiseDirectionItems.map(item => item.text === action.value ? { ...item, selected: true } : { ...item, selected: false } )
-        }
-      
-      case "SELECT_RADIO_BUTTON_SINGLE_OUT":
-        return {
-          ...state,
-          singleOutDirectionItems: state.singleOutDirectionItems.map(item => item.text === action.value ? { ...item, selected: true } : { ...item, selected: false } )
-        }
-
-    default:
-      return state;
-  }
-}
-
-
-// ACTIONS
-export const organiseDirection = (value) => ({ type: "ORGANISE_DIRECTION", value });
-export const createDirection = (value) => ({ type: "CREATE_DIRECTION", value });
-export const changeSpeed = (value) => ({ type: "CHANGE_SPEED", value });
-export const balanceClarity = (value) => ({ type: "BALANCE_CLARITY", value });
-export const singleOutDirection = (value) => ({ type: "SINGLE_OUT_DIRECTION", value });
-
-export const selectRadioButtonOrganise = (value) => ({ type: "SELECT_RADIO_BUTTON_ORGANISE", value });
-export const selectRadioButtonSingleOut = (value) => ({ type: "SELECT_RADIO_BUTTON_SINGLE_OUT", value });
-
-
-
-// GENERIC OPTIONS
-
-export const options = (options, additionalOptions = {}) => Object.assign({}, normalBrain, additionalOptions)
-
-export const normalBrain = {
-  hasGraph: true,
-  hasControlPanel: false,
-  
-  changeSpeed: false,
-  organiseDirection: false,
-  createDirection: false,
-  singleOutDirection: false,
-  balanceClarity: false,
-
-  colour: CONSTANT.standardColour, // "0x4cfeb1"
-  colourFunction: singleConstant,
-
-  // filter: [],
-  // filterFunction: noFilter, 
-
-  height: CONSTANT.heightConstant, // 150
-  heightFunction: singleRandom,
-  
-  frequency: CONSTANT.frequencyConstant, // 0.6
-  frequencyFunction: singlePercentageShowFrequency,
-
-  speed: CONSTANT.standardSpeed, // 50
-  speedFunction: singleConstant,
-
-  distribution: [0, 66, 132, 200], // even distribution
-  distributionFunction: singleConstant,
-
-  behaviour: [0.5, 1], // split timing
-  behaviourFunctionColour: [ singleConstant ],
-  behaviourFunctionHeight: [ singleConstant ],
-  behaviourFunctionFrequency: [ singleConstant ],
-
-  singleOutDirectionItems: [{
-    text: "all",
-    selected: true,
-  },
-  {
-    text: "thought",
-    selected: false,
-  },
-  {
-    text: "opinion",
-    selected: false,
-  },
-  {
-    text: "judgement",
-    selected: false,            
-  }],
-
-  organiseDirectionItems: [{
-    text: "scrambled",
-    selected: true,
-  },
-  {
-    text: "organised",
-    selected: false,
-  }],
-
-}
-
-export const TOJBrain = options(normalBrain, {
-  colour: [ CONSTANT.thoughtColour, CONSTANT.opinionColour, CONSTANT.judgementColour ],
-  colourFunction: multipleRandomOrder,
-});
-
-export const TOJBrainGroup = options(normalBrain, {
-  colour: [ CONSTANT.thoughtColour, CONSTANT.opinionColour, CONSTANT.judgementColour ],
-  colourFunction: multipleSections,
-  frequency: 1,
-});
-
-export const emptySectionBrain = options(normalBrain, {
-  colour: [ CONSTANT.thoughtColour, CONSTANT.whiteColour, CONSTANT.judgementColour ],
-  colourFunction: multipleSections,
-  distribution: [0, 80, 120, 200],
-  frequency: 0.8,
-});
-
-export const selectiveClarityBrain = options(normalBrain, {
-  colour: [ CONSTANT.thoughtColour, CONSTANT.opinionColour, CONSTANT.judgementColour ],
-  colourFunction: multipleSectionRandom,
-  distribution: [0, 80, 120, 200],
-  frequency: 1,
-});
-
-export const overloadBrain = options(normalBrain, {
-  colour: CONSTANT.thoughtColour,
-  frequency: 1,
-  frequencyFunction: singleJammingFrequency,
-});
-
-export const emptyBrain = options(normalBrain, {
-  colour: CONSTANT.judgementColour,
-  height: CONSTANT.heightConstantTiny,
-  frequency: CONSTANT.frequencyConstantTiny,
-});
-
-export const emptyClarityBrain = options(normalBrain, {
-  colour: [ CONSTANT.thoughtColour, CONSTANT.opinionColour, CONSTANT.judgementColour ],
-  colourFunction: multipleRandomOrder,
-
-  frequencyFunction: singleJammingFrequency,
-  frequency: 0.8,
-  
-  speed: 1000,
-});
-
-export const mentalIllnessBrain = options(normalBrain, {
-  colourFunction: multipleBehaviourMultiple,
-  heightFunction: multipleBehaviourSingle,
-  frequencyFunction: multipleBehaviourFrequencySingle,
-  
-  behaviour: [0.3, 0.4, 1],
-  height: [ CONSTANT.heightConstant, CONSTANT.heightConstant, 80 ],
-  behaviourFunctionHeight: [ singleRandom, singleConstant, singleRandom ],
-  
-  frequency: [ CONSTANT.frequencyConstantTiny, CONSTANT.frequencyConstantFull, CONSTANT.frequencyConstant ],
-  behaviourFunctionFrequency: [ singlePercentageShowFrequency, singleJammingFrequency, singlePercentageShowFrequency ],
-  
-  colour: [ CONSTANT.thoughtColour, CONSTANT.standardColour, CONSTANT.judgementColour ],
-  behaviourFunctionColour: [ multipleRandom, multipleIterativeOrder, multipleSectionRandom ],
-
-  speed: 40,
-  speedFunction: sin,
-});

@@ -1,52 +1,21 @@
-import ReactDOM from 'react-dom';
-import React from 'react';
-import { createStore } from 'redux';
-import { Checklist } from './react/components.jsx';
+// import ReactDOM from 'react-dom';
+// import React from 'react';
+// import { ChecklistFullContainer, ChecklistPartialContainer, ChecklistItemAnnotation } from './react/Checklist.jsx';
+import { BrainGraph, runAnimation } from './helpers/functions';
+// import { createCube, createCrazyCube } from '../three/three';
+import * as REDUX from './react/redux';
+// import BrainGraphIndex from './react';
 
-import * as CONSTANT from './helpers/constants';
-import * as HELPERS from './helpers/helpers';
-import moment from 'moment';
-import { BrainGraph, setLoop } from './helpers/functions';
+// EXTERNAL COMPONENTS
 
+// GRAPH COMPONENTS
+// BrainGraph("selfAwareness", REDUX.selfAwareness);
 
-let selfAwareness = BrainGraph("selfAwareness", HELPERS.options(HELPERS.normalBrain, {
-  hasGraph: true,
-  hasControlPanel: true,
-  
-  changeSpeed: true,
-  organiseDirection: true,
-  createDirection: true,
-  singleOutDirection: true,
-  balanceClarity: true,
-}));
-
-let store = createStore(HELPERS.reducer, HELPERS.options(HELPERS.normalBrain, {
-  hasGraph: true,
-  hasControlPanel: true,
-  
-  changeSpeed: true,
-  organiseDirection: true,
-  // createDirection: true,
-  singleOutDirection: true,
-  balanceClarity: true,
-}));
-
-let pT1 = selfAwareness.previousTime;
-let pT1C = selfAwareness.previousTimeComparison;
-
-let getStore = store.getState();
-
-selfAwareness.app.ticker.add(delta => {
-    store.subscribe(() => {  
-      getStore = store.getState()
-      console.log(getStore);    
+let normalBrain = BrainGraph("normalBrain", REDUX.selfAwarenessGraph);
+    normalBrain.app.ticker.add(() => {
+      normalBrain = runAnimation(normalBrain);
     });
-  
-    let { previousTime, previousTimeComparison } = setLoop(selfAwareness.container, getStore, pT1, pT1C);
-    pT1 = previousTime; pT1C = previousTimeComparison; 
-});
 
-// create a function which returns both times
 
 
 // new BrainGraph("normalBrain", HELPERS.options(HELPERS.normalBrain, {

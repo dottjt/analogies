@@ -43,6 +43,12 @@
     margin-bottom: 2rem;
     border-bottom: 1px solid grey;
   }
+
+  .graph__empty {
+    width: 600px;
+    height: 160px;
+    border-bottom: 1px solid grey;    
+  }
 }
 
 .thoughtColor {
@@ -62,6 +68,10 @@
 
 .normalColor {
   color: black;
+}
+
+.underline {
+  text-decoration: underline;
 }
 
 .clarity {
