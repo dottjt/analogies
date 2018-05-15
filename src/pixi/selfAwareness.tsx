@@ -1,9 +1,9 @@
 // import ReactDOM from 'react-dom';
 // import React from 'react';
 // import { ChecklistFullContainer, ChecklistPartialContainer, ChecklistItemAnnotation } from './react/Checklist.jsx';
-import { BrainGraph, runAnimation } from './helpers/functions';
+// import { BrainGraph, runAnimation } from './helpers/functions';
 // import { createCube, createCrazyCube } from '../three/three';
-import * as REDUX from './react/redux';
+// import * as REDUX from './helpers/redux';
 // import BrainGraphIndex from './react';
 
 // EXTERNAL COMPONENTS
@@ -11,10 +11,10 @@ import * as REDUX from './react/redux';
 // GRAPH COMPONENTS
 // BrainGraph("selfAwareness", REDUX.selfAwareness);
 
-let normalBrain = BrainGraph("normalBrain", REDUX.selfAwarenessGraph);
-    normalBrain.app.ticker.add(() => {
-      normalBrain = runAnimation(normalBrain);
-    });
+// let normalBrain = BrainGraph("normalBrain", REDUX.selfAwarenessGraph);
+//     normalBrain.app.ticker.add(() => {
+//       normalBrain = runAnimation(normalBrain);
+//     });
 
 
 

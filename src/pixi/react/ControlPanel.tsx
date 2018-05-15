@@ -1,12 +1,41 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
+import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 
-import * as REDUX from './redux';
+import * as REDUX from '../helpers/redux';
+import { IHelpers, ReduxActions } from '../helpers/types';
 
 // CONTROL PANEL COMPONENT
 
-class ControlPanel extends React.Component {
+
+interface ControlPanelProps {
+  store: IHelpers.Options,
+  createDirection: (value: string) => ReduxActions.StringValueAction,
+  
+  changeSpeed: (value: number) => ReduxActions.NumberValueAction,
+  balanceClarity: (value: number) => ReduxActions.NumberValueAction,
+  
+  organiseDirection: (value: string) => ReduxActions.StringValueAction,
+  singleOutDirection: (value: string) => ReduxActions.StringValueAction,
+  multipleBrainConfiguration: (value: string) => ReduxActions.StringValueAction,
+}
+
+class ControlPanel extends React.Component<ControlPanelProps, {}> {
+
+  static propTypes = {
+    store: PropTypes.object,
+
+    createDirection: PropTypes.func,
+    
+    changeSpeed: PropTypes.func,
+    balanceClarity: PropTypes.func,
+    
+    organiseDirection: PropTypes.func,
+    singleOutDirection: PropTypes.func,
+    multipleBrainConfiguration: PropTypes.func,
+  };
+
   render() {
     let { store } = this.props;
     
@@ -76,57 +105,68 @@ class ControlPanel extends React.Component {
   }
 }
 
-ControlPanel.propTypes = {
-  store: PropTypes.object,
-  changeSpeed: PropTypes.func,
-  organiseDirection: PropTypes.func,
-  singleOutDirection: PropTypes.func,
-  selectRadioButtonSingleOut: PropTypes.func,
-  selectRadioButtonOrganise: PropTypes.func, 
-  createDirection: PropTypes.func,
-  balanceClarity: PropTypes.func,
-  multipleBrainConfiguration: PropTypes.func,
-};
+
 
 // CONTROL PANEL CONTAINER
 
-const mapStateToProps = store => {
+const mapStateToProps = (store: IHelpers.Options) => {
   return {
     store,
   }
 }
 
-const mapDispatchToProps = dispatch => {
+
+const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
-    organiseDirection: (value) => {
-      dispatch(REDUX.organiseDirection(value))
-    },
-    createDirection: (value) => {
+    
+    // BUTTON
+    createDirection: (value: string) => {
       dispatch(REDUX.createDirection(value))
     },
-    changeSpeed: (value) => {
-      dispatch(REDUX.changeSpeed(value))
+
+    // RADIO
+    organiseDirection: (value: string) => {
+      dispatch(REDUX.organiseDirection(value))
     },
-    balanceClarity: (value) => {
-      dispatch(REDUX.balanceClarity(value))
-    },
-    singleOutDirection: (value) => {
+    singleOutDirection: (value: string) => {
       dispatch(REDUX.singleOutDirection(value))
     },
-    multipleBrainConfiguration: (value) => {
+    multipleBrainConfiguration: (value: string) => {
       dispatch(REDUX.multipleBrainConfiguration(value))
+    },
+
+    // SLIDER
+    changeSpeed: (value: number) => {
+      dispatch(REDUX.changeSpeed(value))
+    },
+    balanceClarity: (value: number) => {
+      dispatch(REDUX.balanceClarity(value))
     },
   }
 }
 
-const ControlPanelContainer = connect(
+export const ControlPanelContainer = connect(
   mapStateToProps,
   mapDispatchToProps
 )(ControlPanel);
 
-export default ControlPanelContainer;
 
-class Slider extends React.Component {
+interface SliderProps {
+  name: string,
+  text: string,
+  onInput: (value: number) => {type: string, value: number},
+  selectedValue: number,
+}
+
+class Slider extends React.Component<SliderProps, {}> {
+
+  static propTypes = {
+    name: PropTypes.string,
+    text: PropTypes.string,
+    onInput: PropTypes.func,
+    selectedValue: PropTypes.number,
+  }
+
   render() {
     let { name, text, onInput } = this.props;
     return (
@@ -139,29 +179,38 @@ class Slider extends React.Component {
           min="1"
           max="100"
           value={this.props.selectedValue}
-          onChange={(event) => onInput(event.currentTarget.value)} 
+          onChange={(event) => onInput(+event.currentTarget.value)} 
         />
       </div>
     )
   }
 }
 
-Slider.propTypes = {
-  name: PropTypes.string,
-  text: PropTypes.string,
-  onInput: PropTypes.func,
-  selectedValue: PropTypes.number,
+
+interface RadioProps {
+  name: string,
+  items: IHelpers.RadioItem[],
+  onClick: (value: string) => ReduxActions.StringValueAction,
+  selectedValue: string,
 }
 
-class Radio extends React.Component {
-  constructor(props) {
-    super(props);
+class Radio extends React.Component<RadioProps, {}> {
 
+  static propTypes = {
+    name: PropTypes.string,
+    items: PropTypes.array,
+    onClick: PropTypes.func,
+    selectedValue: PropTypes.string,
+  }
+
+  constructor(props: RadioProps) {
+    super(props);
     this.props.onClick(this.props.selectedValue);
   }
+
   render() {
     return (
-      <div className={`${this.props.text}__radio radio__container field has-addons`}>
+      <div className={`${this.props.name}__radio radio__container field has-addons`}>
         {this.props.items.map((item) => {
           let selected = item.selected ? "is-primary" : "is-primary is-outlined";
           return (
@@ -178,14 +227,20 @@ class Radio extends React.Component {
   }
 }
 
-Radio.propTypes = {
-  text: PropTypes.string,
-  items: PropTypes.array,
-  onClick: PropTypes.func,
-  selectedValue: PropTypes.string,
+interface ButtonProps {
+  name: string,
+  text: string,
+  onClick: (value: string) => {type: string, value: string},
 }
 
-class Button extends React.Component {
+class Button extends React.Component<ButtonProps, {}> {
+
+  static propTypes = {
+    name: PropTypes.string,
+    text: PropTypes.string,
+    onClick: PropTypes.func,
+  }
+
   render() {
     let { name, text, onClick } = this.props;
 
@@ -193,17 +248,11 @@ class Button extends React.Component {
       <div className={`${name}__button button__container`}>
           <button
             className={`${name}__button__input button__input button is-primary`}
-            onClick={() => onClick()}
+            onClick={() => onClick(text)}
           >
           {text}
           </button>
       </div>
     )
   }
-}
-
-Button.propTypes = {
-  name: PropTypes.string,
-  text: PropTypes.string,
-  onClick: PropTypes.func,
 }

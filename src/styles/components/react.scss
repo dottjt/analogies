@@ -167,7 +167,12 @@
     }
     
     100% {
-      border-left: 100px solid white;
+      transform: scaleX(2);
+      transform: rotate(4);
+      transform: skew(0deg);      
+      left: -80px;
+      border-left: 100px solid pink;
+      background: cyan;
     }
   }
 }

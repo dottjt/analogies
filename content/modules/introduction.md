@@ -25,12 +25,12 @@ draft = false
     <div class="introduction__checklist"></div>
     <!-- <h3>(i.e. dance to your favourite 90s' mixtape).</h3> -->
   </div>
-  
 
   <div class="section">
     <h2>For example, I <span class="thoughtColor">thought</span> it would be really cool.</h2>
     <div class="graph" id="thoughtBrain"></div>
   </div>
+
 
   <div class="section">
     <h2>To create this fancy web graphic.</h2>
@@ -45,17 +45,21 @@ draft = false
       <div class="lame__item"></div>
       <div class="lame__item"></div>
       <div class="lame__item"></div>
+      <div class="lame__item"></div>
+      <div class="lame__item"></div>
+      <div class="lame__item"></div>
+      <div class="lame__item"></div>
     </div>  
   </div>
 
+
   <div class="section">
-    <h2>Unfortunately, I <span class="thoughtColor">thought</span> wrong.</h2>
+    <h2>Unfortunately,  I <span class="thoughtColor">thought</span> wrong.</h2>
     <h3>(and now I'm super uncool).</h3>
   </div>
   
   <div class="section">
     <h2>So let's change that.</h2>
-    <h3>:D</h3>
   </div>
 
   <div class="section">
@@ -86,10 +90,9 @@ draft = false
     <div class="introduction__checklist__crossout"></div>
   </div>
 
-<!-- 
-
   <div class="section">
-    <h2>So by evaluating my <span class="thoughtColor">thoughts</span> on what would make me look cool.</h2>
+    <h2>So now that I've taken the time to understand how uncool css animations are.</h2>
+    <h3>(here we go again).</h3>
   </div>
   
   <div class="section">
@@ -106,29 +109,11 @@ draft = false
   <div class="section">
     <h2>Never again.</h2>
     <div id="crazy_cube"></div>
-  </div> -->
-
-  
-  <!-- <div class="section">
-    <h2>Essentially, clarity is important.</h2>
-  </div>   -->
-
-
-  <div class="section">
-    <h2>Like create an even F A N C I E R web graphic!</h2>
-    <h3>(now you'll definitely think I'm cool).</h3>
-    <div id="cube"></div>
   </div>
 
-  <div class="section">
-    <h2>I tried.</h2>
-    <h3>\*sad reacts only\*</h3>
-  </div>
 
-  <div class="section">
-    <h2>Never again.</h2>
-    <div id="crazy_cube"></div>
-  </div> 
+
+  <!-- <span>second clarity bit</span> -->
 
   <div class="section">
     <h2>Clarity is important because it prevents direction from taking over.</h2>
@@ -247,9 +232,11 @@ draft = false
 <script src="/assets/styles.js"></script>
 
   
-<!--   
+<!---
   <div class="section">
     <h2>Of course, it's a skill that takes a lot of practice, trial and error.</h2>
     <h3>(and is essentially what this course aims to cover).</h3>
   </div> -->
+
+<!-- 
 

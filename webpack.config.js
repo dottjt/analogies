@@ -7,13 +7,14 @@ const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 
 module.exports = {
   mode: 'development',
+  devtool: 'inline-source-map',
   entry: {
     styles: "./src/styles/styles.js",
-    introduction: "./src/pixi/introduction.js",
-    selfAwareness: "./src/pixi/selfAwareness.js",
-    creatingDirection: "./src/pixi/creatingDirection.js",
-    identifyingDirection: "./src/pixi/identifyingDirection.js",
-    three: "./src/three/three.js",
+    introduction: "./src/pixi/introduction.tsx",
+    selfAwareness: "./src/pixi/selfAwareness.tsx",
+    creatingDirection: "./src/pixi/creatingDirection.tsx",
+    identifyingDirection: "./src/pixi/identifyingDirection.tsx",
+    three: "./src/three/three.ts",
   },
   output: {
     filename: "[name].js",
@@ -25,6 +26,13 @@ module.exports = {
       {
         test: /\.(js|jsx)$/,
         use: 'babel-loader',
+        exclude: [
+          /node_modules/
+        ],
+      },
+      {
+        test: /\.(ts|tsx)$/,
+        use: 'ts-loader',
         exclude: [
           /node_modules/
         ],
@@ -42,6 +50,9 @@ module.exports = {
       }
     ]
   },
+  resolve: {
+    extensions: [ '.tsx', '.ts', '.js', '.jsx' ]
+  },
   plugins: [
     new ExtractTextPlugin("styles.css"),
     new webpack.NamedModulesPlugin(),
@@ -58,7 +69,7 @@ module.exports = {
     ]
     // splitChunks: {
     //   chunks: "all"
-    // },    
+    // },
   },
   devServer: {
     contentBase: path.resolve(__dirname, 'public'),
