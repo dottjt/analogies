@@ -12,8 +12,8 @@ draft = false
   
   <div class="section">
     <h2>Self-awareness is an interface for your brain.</h2>
-    <div class="graph" id="normalBrain"></div>
-    <div class="panel" id="normalBrainPanel"></div>
+    <!-- <div class="graph" id="selfAwarenessGraph"></div>
+    <div class="panel" id="selfAwarenessGraphPanel"></div> -->
   </div>
 
   <div class="section">

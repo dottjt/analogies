@@ -4,7 +4,8 @@ import { Store, Action } from 'redux';
 
 declare module IHelpers {
 
-  export type Options = {
+  // BRAIN GRAPH
+  export type BrainOptions = {
     readonly hasGraph: boolean,
     readonly hasControlPanel: boolean,
     
@@ -62,6 +63,39 @@ declare module IHelpers {
     previousTime: number,
     previousTimeComparison: Moment,
   }
+
+
+  
+  // NARRATIVE GRAPH
+  export type NarrativeOptions = {
+    readonly hasGraph: boolean,
+    readonly hasControlPanel: boolean,
+
+    readonly colour: number[],
+    readonly colourFunction: { (valueArray: number[], _index: number, _randomIndex: number, _rateOfChange: number): number; } [],
+    
+    readonly xPosition: number[],
+    readonly xPositionFunction: { (valueArray: number[], _index: number, _randomIndex: number, _rateOfChange: number): number; } [],
+    
+    readonly yPosition: number[],
+    readonly yPositionFunction: { (valueArray: number[], _index: number, _randomIndex: number, _rateOfChange: number): number; } [],
+    
+    readonly lineThickness: number[],
+    readonly lineThicknessFunction: { (valueArray: number[], _index: number, _randomIndex: number, _rateOfChange: number): number; } [],
+
+    readonly speed: number[],
+    readonly speedFunction: { (speed: number[], change: number): number } [],
+  }
+
+  export interface NarrativeGraph {
+    app: PIXI.Application | null,
+    store: Store<Options>,
+    domElement: Element | null, 
+    animationFunction: { (graph: NarrativeGraph): NarrativeGraph } | null,
+    previousTime: number,
+    previousTimeComparison: Moment,
+  }
+
 }
 
 
@@ -89,6 +123,11 @@ declare module ReduxActions {
   export interface StringArrayAction extends Action {
     type: string,
     array: string[],
+  }
+
+  export interface MomentArrayAction extends Action {
+    type: string,
+    previousTime: Moment,
   }
 
 }

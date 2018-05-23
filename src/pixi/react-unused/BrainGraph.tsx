@@ -6,13 +6,17 @@
 
 // import * as PIXI from 'pixi.js';
 // import * as CONSTANT from '../helpers/constants';
-// import * as REDUX from './redux';
+// import * as REDUX from './reduxBrain';
 
 // import { Container, Sprite } from "react-pixi-fiber";
 
 
+// ReactDOM.render(<BrainGraphIndex hasGraph={true} hasControlPanel={false} options={REDUX.normalBrain} />, 
+//                 document.querySelector('#normalBrain'));
+
+
 // interface BrainGraphProps {
-//   store: Store<IHelpers.Options>,
+//   store: Store<IHelpers.BrainOptions>,
 //   calculateRateOfChange: (n: number) => number,
 //   calculateRandomColourIndex: (n: number) => number,
 //   calculateRandomHeightIndex: (n: number) => number,
@@ -21,7 +25,7 @@
 // }
 
 // interface BrainGraphState {
-//   elementTotal: number[],
+//   brainElementTotal: number[],
 //   previousTime: number,
 //   previousTimeComparison: moment.Moment
 // }
@@ -41,7 +45,7 @@
 //     super(props);
 
 //     this.state = {
-//       elementTotal: [...Array(CONSTANT.elementTotal).keys()],
+//       brainElementTotal: [...Array(CONSTANT.brainElementTotal).keys()],
 //       previousTime: moment().format("x"),
 //       previousTimeComparison: moment(),
 //     }
@@ -65,8 +69,8 @@
 //     this.props.calculateRandomHeightIndex();
 
 //     if (previousTime + store.speedFunction(store.speed, store.rateOfChange) < previousTimeComparison.format("x")) {
-//       this.props.calculateHeight(this.state.elementTotal);
-//       this.props.calculateTint(this.state.elementTotal);
+//       this.props.calculateHeight(this.state.brainElementTotal);
+//       this.props.calculateTint(this.state.brainElementTotal);
 //       this.setState({
 //         previousTime: moment(),
 //         previousTimeComparison: moment(),
@@ -81,7 +85,7 @@
 //   render() {
 //     return (
 //       <Container x={0} y={this.context.app.screen.height}>
-//         {this.state.elementTotal.map(index => (
+//         {this.state.brainElementTotal.map(index => (
 //           <Bar
 //             key={index} 
 //             index={index}
@@ -136,12 +140,12 @@
 // const Bar = props => (
 //   <Sprite
 //     texture={PIXI.Texture.WHITE}
-//           x={props.index * CONSTANT.positionConstant}
+//           x={props.index * CONSTANT.brainPositionConstant}
     
 //     tint={props.calculatedTint[props.index]}
 //     height={props.calculatedHeight[props.index]}
 
-//     width={CONSTANT.widthConstant}
+//     width={CONSTANT.brainWidthConstant}
 //     anchor={new PIXI.Point(0.5, 0.5)}
 //     // okay, I need to figure out this bad boi.
 //   />

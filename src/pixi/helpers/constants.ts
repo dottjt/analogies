@@ -1,14 +1,4 @@
-// CONSTANTS
-export const elementTotal = 200;
-export const standardSpeed = 75;
-
-export const heightConstant = 150;
-export const heightConstantTiny = 10;
-export const widthConstant = 1;
-export const positionConstant = 3;
-export const heightPostConstant = 0.6;
-export const heightPostConstantFull = 1;
-export const heightPostConstantTiny = 0.02;
+// COLOUR CONSTANTS
 
 export const standardColour = 0x4cfeb1;
 export const whiteColour = 0xffffff;
@@ -18,3 +8,30 @@ export const opinionColour = 0x900C3F;
 export const judgementColour = 0xFF5733;
 
 export const gratitudeColour = 0xFF5733;
+
+
+// BRAIN CONSTANTS
+
+export const brainElementTotal = 200;
+export const brainStandardSpeed = 75;
+
+export const brainHeightConstant = 150;
+export const brainHeightConstantTiny = 10;
+
+export const brainWidthConstant = 1;
+
+export const brainPositionConstant = 3;
+
+export const brainHeightPostConstant = 0.6;
+export const brainHeightPostConstantFull = 1;
+export const brainHeightPostConstantTiny = 0.02;
+
+
+// NARRATIVE CONSTANTS
+
+export const narrativeStandardSpeed = 75;
+
+export const narrativeStandardLineThickness = 1;
+
+export const narrativeXPositionConstant = 0;
+export const narrativeYPositionConstant = 75;

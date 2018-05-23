@@ -1,155 +1,11 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { Dispatch } from 'redux';
+import { Dispatch, bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-
-import * as REDUX from '../helpers/redux';
+import * as ACTIONS from '../helpers/actions';
 import { IHelpers, ReduxActions } from '../helpers/types';
 
 // CONTROL PANEL COMPONENT
-
-
-interface ControlPanelProps {
-  store: IHelpers.Options,
-  createDirection: (value: string) => ReduxActions.StringValueAction,
-  
-  changeSpeed: (value: number) => ReduxActions.NumberValueAction,
-  balanceClarity: (value: number) => ReduxActions.NumberValueAction,
-  
-  organiseDirection: (value: string) => ReduxActions.StringValueAction,
-  singleOutDirection: (value: string) => ReduxActions.StringValueAction,
-  multipleBrainConfiguration: (value: string) => ReduxActions.StringValueAction,
-}
-
-class ControlPanel extends React.Component<ControlPanelProps, {}> {
-
-  static propTypes = {
-    store: PropTypes.object,
-
-    createDirection: PropTypes.func,
-    
-    changeSpeed: PropTypes.func,
-    balanceClarity: PropTypes.func,
-    
-    organiseDirection: PropTypes.func,
-    singleOutDirection: PropTypes.func,
-    multipleBrainConfiguration: PropTypes.func,
-  };
-
-  render() {
-    let { store } = this.props;
-    
-    return (
-      <div className="panel">
-
-      {/* SLIDER */}
-        { store.changeSpeed ?
-          <Slider
-            name="change__speed"
-            text="change speed"
-            onInput={this.props.changeSpeed}
-            selectedValue={store.changeSpeed}
-          />
-        : null }
-
-        { store.balanceClarity ?
-          <Slider
-            name="balance__clarity"
-            text="clarity balance"
-            onInput={this.props.balanceClarity}
-            selectedValue={store.balanceClarity}            
-          />
-        : null }
-
-
-      {/* RADIO */}
-        { store.organiseDirection ?
-          <Radio
-            name="organise direction"
-            items={store.organiseDirectionItems}
-            onClick={this.props.organiseDirection}
-            selectedValue={store.organiseDirection}
-          />
-        : null }
-
-        { store.singleOutDirection ?
-          <Radio
-            name="change__focus"
-            items={store.singleOutDirectionItems}
-            onClick={this.props.singleOutDirection}
-            selectedValue={store.singleOutDirection}            
-          />
-        : null }
-
-        { store.multipleBrainConfiguration ?
-          <Radio
-            name="multiple__brain__configurations"
-            items={store.multipleBrainConfigurationItems}
-            onClick={this.props.multipleBrainConfiguration}
-            selectedValue={store.multipleBrainConfiguration}                        
-          />
-        : null }
-
-
-      {/* BUTTON */}
-        { store.createDirection ?
-          <Button
-            name="create__direction"
-            text="create direction"
-            onClick={() => this.props.createDirection("gratitude")}
-          />
-        : null }
-
-      </div>
-    )
-  }
-}
-
-
-
-// CONTROL PANEL CONTAINER
-
-const mapStateToProps = (store: IHelpers.Options) => {
-  return {
-    store,
-  }
-}
-
-
-const mapDispatchToProps = (dispatch: Dispatch) => {
-  return {
-    
-    // BUTTON
-    createDirection: (value: string) => {
-      dispatch(REDUX.createDirection(value))
-    },
-
-    // RADIO
-    organiseDirection: (value: string) => {
-      dispatch(REDUX.organiseDirection(value))
-    },
-    singleOutDirection: (value: string) => {
-      dispatch(REDUX.singleOutDirection(value))
-    },
-    multipleBrainConfiguration: (value: string) => {
-      dispatch(REDUX.multipleBrainConfiguration(value))
-    },
-
-    // SLIDER
-    changeSpeed: (value: number) => {
-      dispatch(REDUX.changeSpeed(value))
-    },
-    balanceClarity: (value: number) => {
-      dispatch(REDUX.balanceClarity(value))
-    },
-  }
-}
-
-export const ControlPanelContainer = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ControlPanel);
-
 
 interface SliderProps {
   name: string,
@@ -159,7 +15,6 @@ interface SliderProps {
 }
 
 class Slider extends React.Component<SliderProps, {}> {
-
   static propTypes = {
     name: PropTypes.string,
     text: PropTypes.string,
@@ -169,6 +24,7 @@ class Slider extends React.Component<SliderProps, {}> {
 
   render() {
     let { name, text, onInput } = this.props;
+    
     return (
       <div className={`${name}__slider slider__container`}>
         <label htmlFor={`${name}__slider`}>{text}</label>
@@ -209,18 +65,20 @@ class Radio extends React.Component<RadioProps, {}> {
   }
 
   render() {
+    console.log(this.props);
+
+    // for whatever reason, this isn't rendered
+
     return (
       <div className={`${this.props.name}__radio radio__container field has-addons`}>
-        {this.props.items.map((item) => {
-          let selected = item.selected ? "is-primary" : "is-primary is-outlined";
-          return (
-            <div key={item.text} className={`radio__item control`}>
-              <div className={`${selected} button`} onClick={() => this.props.onClick(item.text) }>
-                {item.text}
-              </div>
+        {this.props.items.map((item) => (
+          <div key={item.text} className={`radio__item control`}>
+            <div className={`${item.selected ? "is-primary" : "is-primary is-outlined"} button`} onClick={() => this.props.onClick(item.text) }>
+              {item.text}
             </div>
-          );
-        })
+          </div>
+          )
+        )
         }
       </div>
     )
@@ -256,3 +114,110 @@ class Button extends React.Component<ButtonProps, {}> {
     )
   }
 }
+
+
+interface ControlPanelProps {
+  store: IHelpers.BrainOptions,
+  createDirection: (value: string) => ReduxActions.StringValueAction,
+  
+  changeSpeed: (value: number) => ReduxActions.NumberValueAction,
+  balanceClarity: (value: number) => ReduxActions.NumberValueAction,
+  
+  organiseDirection: (value: string) => ReduxActions.StringValueAction,
+  singleOutDirection: (value: string) => ReduxActions.StringValueAction,
+  multipleBrainConfiguration: (value: string) => ReduxActions.StringValueAction,
+}
+
+class ControlPanel extends React.Component<ControlPanelProps, {}> {
+
+  static propTypes = {
+    store: PropTypes.object,
+
+    createDirection: PropTypes.func,
+    
+    changeSpeed: PropTypes.func,
+    balanceClarity: PropTypes.func,
+    
+    organiseDirection: PropTypes.func,
+    singleOutDirection: PropTypes.func,
+    multipleBrainConfiguration: PropTypes.func,
+  };
+
+  render() {
+    let store: IHelpers.BrainOptions = this.props.store;
+        
+    return (
+      <div className="panel">
+
+      {/* SLIDER */}
+        { store.changeSpeed ?
+          <Slider
+            name="change__speed"
+            text="change speed"
+            onInput={this.props.changeSpeed}
+            selectedValue={store.changeSpeed}
+          />
+        : null }
+
+        { store.balanceClarity ?
+          <Slider
+            name="balance__clarity"
+            text="clarity balance"
+            onInput={this.props.balanceClarity}
+            selectedValue={store.balanceClarity}            
+          />
+        : null }
+
+      {/* RADIO */}
+        { store.organiseDirection ?
+          <Radio
+            name="organise direction"
+            items={store.organiseDirectionItems}
+            onClick={this.props.organiseDirection}
+            selectedValue={store.organiseDirection}
+          />
+        : null }
+
+        { store.singleOutDirection ?
+          <Radio
+            name="change__focus"
+            items={store.singleOutDirectionItems}
+            onClick={this.props.singleOutDirection}
+            selectedValue={store.singleOutDirection}            
+          />
+        : null }
+
+        { store.multipleBrainConfiguration ?
+          <Radio
+            name="multiple__brain__configurations"
+            items={store.multipleBrainConfigurationItems}
+            onClick={this.props.multipleBrainConfiguration}
+            selectedValue={store.multipleBrainConfiguration}                        
+          />
+        : null }
+
+      {/* BUTTON */}
+        { store.createDirection ?
+          <Button
+            name="create__direction"
+            text="create direction"
+            onClick={() => this.props.createDirection("gratitude")}
+          />
+        : null }
+
+      </div>
+    )
+  }
+}
+
+
+
+// CONTROL PANEL CONTAINER
+
+const mapStateToProps = (store: IHelpers.BrainOptions) => ({ store });
+const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators(ACTIONS, dispatch);
+
+export const ControlPanelContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ControlPanel);

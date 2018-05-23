@@ -7,19 +7,19 @@
 // import { composeWithDevTools } from 'redux-devtools-extension';
 // import { Stage } from "react-pixi-fiber";
 
-// import * as REDUX from './redux';
+// import * as REDUX from './reduxBrain';
 
 // import BrainGraphContainer from './BrainGraph';
 // import ControlPanelContainer from './ControlPanel';
 
 // interface BrainGraphIndexProps {
-//   options: IHelpers.Options,
+//   options: IHelpers.BrainOptions,
 //   hasGraph: boolean,
 //   hasControlPanel: boolean,
 // }
 
 // interface BrainGraphIndexState {
-//   store: Store<IHelpers.Options>
+//   store: Store<IHelpers.BrainOptions>
 // }
 
 // export default class BrainGraphIndex extends React.Component<BrainGraphIndexProps, BrainGraphIndexState> {

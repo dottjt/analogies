@@ -2,12 +2,11 @@
 import * as CONSTANT from '../helpers/constants';
 import * as HELPERS from '../helpers/helpers';
 
-import { Moment } from 'moment';
-import { ActionCreator, AnyAction } from 'redux';
-import { IHelpers, ReduxActions } from './types';
+import { AnyAction } from 'redux';
+import { IHelpers } from './types';
 
 // REDUCER
-export const reducer = (state = normalBrain, action: AnyAction ): IHelpers.Options => {
+export const reducer = (state = normalBrain, action: AnyAction ): IHelpers.BrainOptions => {
   switch (action.type) {
     // CONTROL PANEL COMPONENTS
 
@@ -15,17 +14,15 @@ export const reducer = (state = normalBrain, action: AnyAction ): IHelpers.Optio
     case 'ORGANISE_DIRECTION':
       switch (action.value) {
         case 'scrambled':
-          return { 
-            ...state, 
-            colour: [ CONSTANT.thoughtColour, CONSTANT.opinionColour, CONSTANT.judgementColour ], 
-            colourFunction: [ HELPERS.multipleRandomArrayIndex ],
+          return {
+            ...state,
+            ...TOJBrain,
             organiseDirectionItems: state.organiseDirectionItems.map((item: IHelpers.RadioItem) => item.text === action.value ? { ...item, selected: true } : { ...item, selected: false } ),
           };
         case 'organised':
           return { 
-            ...state, 
-            colour: [ CONSTANT.thoughtColour, CONSTANT.opinionColour, CONSTANT.judgementColour ], 
-            colourFunction: [ HELPERS.multipleEvenDistributionSections ],
+            ...state,
+            ...TOJBrainGroup,
             organiseDirectionItems: state.organiseDirectionItems.map((item: IHelpers.RadioItem) => item.text === action.value ? { ...item, selected: true } : { ...item, selected: false } ),
           };
         default:
@@ -38,37 +35,26 @@ export const reducer = (state = normalBrain, action: AnyAction ): IHelpers.Optio
         case 'all':
           return { 
             ...state, 
-            colour: [ CONSTANT.standardColour ],
+            ...normalBrain,
             colourFunction: [ HELPERS.multipleEvenDistributionSections ],
-            colourPost: [ CONSTANT.standardColour ],
-            colourPostFunction: [ HELPERS.constantColour ],
             singleOutDirectionItems: state.singleOutDirectionItems.map((item: IHelpers.RadioItem) => item.text === action.value ? { ...item, selected: true } : { ...item, selected: false } ),
           };
         case 'thought':
           return { 
             ...state, 
-            colour: [ CONSTANT.thoughtColour, CONSTANT.whiteColour, CONSTANT.whiteColour ],
-            colourFunction: [ HELPERS.multipleEvenDistributionSections ],
-            colourPost: [ CONSTANT.thoughtColour ],
-            colourPostFunction: [ HELPERS.filterColour ],
+            ...thoughtBrainPost,
             singleOutDirectionItems: state.singleOutDirectionItems.map((item: IHelpers.RadioItem) => item.text === action.value ? { ...item, selected: true } : { ...item, selected: false } ),
           };
         case 'opinion':
           return { 
             ...state, 
-            colour: [ CONSTANT.whiteColour, CONSTANT.opinionColour, CONSTANT.whiteColour ],
-            colourFunction: [ HELPERS.multipleEvenDistributionSections ],
-            colourPost: [ CONSTANT.opinionColour ],
-            colourPostFunction: [ HELPERS.filterColour ],                             
+            ...opinionBrainPost,
             singleOutDirectionItems: state.singleOutDirectionItems.map((item: IHelpers.RadioItem) => item.text === action.value ? { ...item, selected: true } : { ...item, selected: false } ),
           };
         case 'judgement':
           return { 
             ...state, 
-            colour: [ CONSTANT.whiteColour, CONSTANT.whiteColour, CONSTANT.judgementColour ],
-            colourFunction: [ HELPERS.multipleEvenDistributionSections ],
-            colourPost: [ CONSTANT.judgementColour ],
-            colourPostFunction: [ HELPERS.filterColour ],                             
+            ...judgementBrainPost,                         
             singleOutDirectionItems: state.singleOutDirectionItems.map((item: IHelpers.RadioItem) => item.text === action.value ? { ...item, selected: true } : { ...item, selected: false } ),
           };
         default:
@@ -81,38 +67,12 @@ export const reducer = (state = normalBrain, action: AnyAction ): IHelpers.Optio
         case 'mental illness':
           return {
             ...state,
-            multipleBrainConfigurationItems: state.multipleBrainConfigurationItems.map((item: IHelpers.RadioItem) => item.text === action.value ? { ...item, selected: true } : { ...item, selected: false } ),
-
-            behaviour: [0.3, 0.4, 1],
-
-            height: [ CONSTANT.heightConstant, CONSTANT.heightConstant, 80 ],
-            heightFunction: [ HELPERS.singleMultiplyRandomNumberValue, HELPERS.constantNumberValue, HELPERS.singleMultiplyRandomNumberValue ],
-            
-            heightPost: [ CONSTANT.heightPostConstantTiny, CONSTANT.heightPostConstantFull, CONSTANT.heightPostConstant ],
-            heightPostFunction: [ HELPERS.constantHeight, HELPERS.percentageHeightTimesFour, HELPERS.constantHeight ],
-            
-            colour: [ CONSTANT.thoughtColour, 0x000000, CONSTANT.judgementColour ],
-            colourFunction: [ HELPERS.multipleRandomArrayIndex, HELPERS.multipleSectionRandom, HELPERS.multipleSectionRandom ],
-
-            speed: [ 40 ],
-            speedFunction: [ HELPERS.sin ],
+            ...mentalIllnessBrain,
           };
         case 'balance': 
           return {
             ...state,
-            multipleBrainConfigurationItems: state.multipleBrainConfigurationItems.map((item: IHelpers.RadioItem) => item.text === action.value ? { ...item, selected: true } : { ...item, selected: false } ),
-    
-            colour: [ CONSTANT.standardColour ], // '0x4cfeb1'
-            colourFunction: [ HELPERS.constantNumberValue ],
-          
-            height: [ CONSTANT.heightConstant ], // 150
-            heightFunction: [ HELPERS.singleMultiplyRandomNumberValue ],
-    
-            heightPost: [ CONSTANT.heightPostConstant ], // 0.6
-            heightPostFunction: [ HELPERS.constantHeight ],
-    
-            speed: [ CONSTANT.standardSpeed ], // 50
-            speedFunction: [ HELPERS.constantSpeed ],
+            ...normalBrain,
           };
         default:
           return state;
@@ -148,28 +108,11 @@ export const reducer = (state = normalBrain, action: AnyAction ): IHelpers.Optio
   }
 };
 
-// ACTIONS
-export const calculateHeight: ActionCreator<ReduxActions.NumberArrayAction> = (array: number[]) => ({ type: 'CALCULATE_HEIGHT', array });
-export const calculateTint: ActionCreator<ReduxActions.StringArrayAction> = (array: string[]) => ({ type: 'CALCULATE_TINT', array });
-
-export const calculateRateOfChange = (previousTime: Moment) => ({ type: 'CALCULATE_RATE_OF_CHANGE', previousTime });
-export const calculateRandomColourIndex: ActionCreator<ReduxActions.TypeAction> = () => ({ type: 'CALCULATE_RANDOM_COLOUR_INDEX' });
-export const calculateRandomHeightIndex: ActionCreator<ReduxActions.TypeAction> = () => ({ type: 'CALCULATE_RANDOM_HEIGHT_INDEX' });
-
-export const organiseDirection: ActionCreator<ReduxActions.StringValueAction> = (value: string) => ({ type: 'ORGANISE_DIRECTION', value });
-export const singleOutDirection: ActionCreator<ReduxActions.StringValueAction> = (value: string) => ({ type: 'SINGLE_OUT_DIRECTION', value });
-export const multipleBrainConfiguration: ActionCreator<ReduxActions.StringValueAction> = (value: string) => ({ type: 'MULTIPLE_BRAIN_CONFIGURATION', value });
-
-export const createDirection: ActionCreator<ReduxActions.StringValueAction> = (value: string) => ({ type: 'CREATE_DIRECTION', value });
-
-export const changeSpeed: ActionCreator<ReduxActions.NumberValueAction> = (value: number) => ({ type: 'CHANGE_SPEED', value });
-export const balanceClarity: ActionCreator<ReduxActions.NumberValueAction> = (value: number) => ({ type: 'BALANCE_CLARITY', value });
-
 // GENERIC OPTIONS
 
-export const options = (normalBrainOptions: IHelpers.Options, additionalOptions = {}): IHelpers.Options => Object.assign({}, normalBrainOptions, additionalOptions);
+export const options = (normalBrainOptions: IHelpers.BrainOptions, additionalOptions = {}): IHelpers.BrainOptions => ({ ...normalBrainOptions, ...additionalOptions });
 
-export const normalBrain: IHelpers.Options = {
+export const normalBrain: IHelpers.BrainOptions = {
   // these first two options are only for desktop, not used for react.
   hasGraph: true,
   hasControlPanel: false,
@@ -187,7 +130,7 @@ export const normalBrain: IHelpers.Options = {
   multipleBrainConfiguration: null, // mental illness, balance
 
   // calculatedHeight: [...Array(200)].fill(CONSTANT.standardColour, 0, 199),
-  // calculatedTint: [...Array(200)].fill(CONSTANT.heightConstant, 0, 199),
+  // calculatedTint: [...Array(200)].fill(CONSTANT.brainHeightConstant, 0, 199),
   // randomColourIndex: 0,
   // randomHeightIndex: 0,
   // rateOfChange: +moment().format('SSS') / 1000,
@@ -198,13 +141,13 @@ export const normalBrain: IHelpers.Options = {
   colourPost: [ CONSTANT.standardColour ],
   colourPostFunction: [ HELPERS.constantColour ],
 
-  height: [ CONSTANT.heightConstant ], // 150
+  height: [ CONSTANT.brainHeightConstant ], // 150
   heightFunction: [ HELPERS.singleMultiplyRandomNumberValue ],
 
-  heightPost: [ CONSTANT.heightPostConstant ], // 0.6
+  heightPost: [ CONSTANT.brainHeightPostConstant ], // 0.6
   heightPostFunction: [ HELPERS.percentageHeight ],
 
-  speed: [ CONSTANT.standardSpeed ], // 50
+  speed: [ CONSTANT.brainStandardSpeed ], // 50
   speedFunction: [ HELPERS.constantSpeed ],
 
   distribution: [ 0, 66, 132, 200 ], // even distribution
@@ -250,7 +193,7 @@ export const normalBrain: IHelpers.Options = {
 
 // INITIAL STATE
 
-export const thoughtBrain = options(normalBrain, {
+export const thoughtBrain: IHelpers.BrainOptions = options(normalBrain, {
   colour: [ CONSTANT.whiteColour, CONSTANT.thoughtColour, CONSTANT.whiteColour ],
   colourFunction: [ HELPERS.multipleEvenDistributionSections ],
 
@@ -258,25 +201,59 @@ export const thoughtBrain = options(normalBrain, {
   distribution: [ 0, 90, 110, 200 ], // even distribution
 });
 
-export const TOJBrain = options(normalBrain, {
+export const thoughtBrainPost: IHelpers.BrainOptions = options(thoughtBrain, {
+  colourPost: [ CONSTANT.thoughtColour ],
+  colourPostFunction: [ HELPERS.filterColour ],  
+});
+
+export const opinionBrain: IHelpers.BrainOptions = options(normalBrain, {
+  colour: [ CONSTANT.whiteColour, CONSTANT.opinionColour, CONSTANT.whiteColour ],
+  colourFunction: [ HELPERS.multipleEvenDistributionSections ],
+
+  heightPost: [ 1 ],
+  distribution: [ 0, 90, 110, 200 ], // even distribution
+});
+
+export const opinionBrainPost: IHelpers.BrainOptions = options(opinionBrain, {
+  colourPost: [ CONSTANT.opinionColour ],
+  colourPostFunction: [ HELPERS.filterColour ],  
+});
+
+export const judgementBrain: IHelpers.BrainOptions = options(normalBrain, {
+  colour: [ CONSTANT.whiteColour, CONSTANT.judgementColour, CONSTANT.whiteColour ],
+  colourFunction: [ HELPERS.multipleEvenDistributionSections ],
+
+  heightPost: [ 1 ],
+  distribution: [ 0, 90, 110, 200 ], // even distribution
+});
+
+export const judgementBrainPost: IHelpers.BrainOptions = options(judgementBrain, {
+  colourPost: [ CONSTANT.judgementColour ],
+  colourPostFunction: [ HELPERS.filterColour ],  
+});
+
+
+
+
+export const TOJBrain: IHelpers.BrainOptions = options(normalBrain, {
   colour: [ CONSTANT.thoughtColour, CONSTANT.opinionColour, CONSTANT.judgementColour ],
   colourFunction: [ HELPERS.multipleRandomArrayIndex ],
 });
 
-export const TOJBrainGroup = options(normalBrain, {
+export const TOJBrainGroup: IHelpers.BrainOptions = options(normalBrain, {
   colour: [ CONSTANT.thoughtColour, CONSTANT.opinionColour, CONSTANT.judgementColour ],
   colourFunction: [ HELPERS.multipleEvenDistributionSections ],
   heightPost: [ 1 ],
 });
 
-export const emptySectionBrain = options(normalBrain, {
+export const emptySectionBrain: IHelpers.BrainOptions = options(normalBrain, {
   colour: [ CONSTANT.thoughtColour, CONSTANT.whiteColour, CONSTANT.judgementColour ],
   colourFunction: [ HELPERS.multipleEvenDistributionSections ],
   distribution: [0, 80, 120, 200],
   heightPost: [ 0.8 ],
 });
 
-export const selectiveClarityBrain = options(normalBrain, {
+export const selectiveClarityBrain: IHelpers.BrainOptions = options(normalBrain, {
   colour: [ CONSTANT.thoughtColour, CONSTANT.opinionColour, CONSTANT.judgementColour ],
   colourFunction: [ HELPERS.multipleSectionRandom ],
 
@@ -285,19 +262,19 @@ export const selectiveClarityBrain = options(normalBrain, {
   heightPost: [ 1 ],
 });
 
-export const overloadBrain = options(normalBrain, {
+export const overloadBrain: IHelpers.BrainOptions = options(normalBrain, {
   colour: [ CONSTANT.thoughtColour ],
   heightPost: [ 1 ],
   heightPostFunction: [ HELPERS.percentageHeightTimesFour ],
 });
 
-export const emptyBrain = options(normalBrain, {
+export const emptyBrain: IHelpers.BrainOptions = options(normalBrain, {
   colour: [ CONSTANT.judgementColour ],
-  height: [ CONSTANT.heightConstantTiny ],
-  heightPost: [ CONSTANT.heightPostConstantTiny ],
+  height: [ CONSTANT.brainHeightConstantTiny ],
+  heightPost: [ CONSTANT.brainHeightPostConstantTiny ],
 });
 
-export const emptyClarityBrain = options(normalBrain, {
+export const emptyClarityBrain: IHelpers.BrainOptions = options(normalBrain, {
   colour: [ CONSTANT.thoughtColour, CONSTANT.opinionColour, CONSTANT.judgementColour ],
   colourFunction: [ HELPERS.multipleRandomArrayIndex ],
 
@@ -307,13 +284,13 @@ export const emptyClarityBrain = options(normalBrain, {
   speed: [ 1000 ],
 });
 
-export const mentalIllnessBrain = options(normalBrain, {
+export const mentalIllnessBrain: IHelpers.BrainOptions = options(normalBrain, {
   behaviour: [0.3, 0.4, 1],
 
-  height: [ CONSTANT.heightConstant, CONSTANT.heightConstant, 80 ],
+  height: [ CONSTANT.brainHeightConstant, CONSTANT.brainHeightConstant, 80 ],
   heightFunction: [ HELPERS.singleMultiplyRandomNumberValue, HELPERS.constantNumberValue, HELPERS.singleMultiplyRandomNumberValue ],
 
-  heightPost: [ CONSTANT.heightPostConstantTiny, CONSTANT.heightPostConstantFull, CONSTANT.heightPostConstant ],
+  heightPost: [ CONSTANT.brainHeightPostConstantTiny, CONSTANT.brainHeightPostConstantFull, CONSTANT.brainHeightPostConstant ],
   heightPostFunction: [ HELPERS.constantHeight, HELPERS.percentageHeightTimesFour, HELPERS.constantHeight ],
   
   colour: [ CONSTANT.thoughtColour, CONSTANT.standardColour, CONSTANT.judgementColour ],
@@ -326,13 +303,13 @@ export const mentalIllnessBrain = options(normalBrain, {
   speedFunction: [ HELPERS.sin ],
 });
 
-export const multipleConfigurationBrainMentalIllness = options(mentalIllnessBrain, {
+export const multipleConfigurationBrainMentalIllness: IHelpers.BrainOptions = options(mentalIllnessBrain, {
   hasGraph: true,
   hasControlPanel: true,
   multipleBrainConfiguration: 'mental illness',
 });
 
-export const multipleConfigurationBrainAdjusted = options(normalBrain, {
+export const multipleConfigurationBrainAdjusted: IHelpers.BrainOptions = options(normalBrain, {
   hasGraph: true,
   hasControlPanel: true,
   multipleBrainConfiguration: 'balance',
@@ -340,7 +317,7 @@ export const multipleConfigurationBrainAdjusted = options(normalBrain, {
 
 // self-awarenesss
 
-export const selfAwareness = options(normalBrain, {
+export const selfAwareness: IHelpers.BrainOptions = options(normalBrain, {
   hasGraph: false,
   hasControlPanel: true,
   
@@ -353,12 +330,6 @@ export const selfAwareness = options(normalBrain, {
   singleOutDirection: 'all',
 });
 
-export const selfAwarenessGraph = options(normalBrain, {
-  hasControlPanel: true,
-
-  changeSpeed: 50,
-  balanceClarity: 50,  
-  // createDirection: true,
-  organiseDirection: 'scrambled',
-  singleOutDirection: 'all',
+export const selfAwarenessGraph: IHelpers.BrainOptions = options(selfAwareness, {
+  hasGraph: true,
 });

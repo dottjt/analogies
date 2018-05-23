@@ -14,6 +14,7 @@ module.exports = {
     selfAwareness: "./src/pixi/selfAwareness.tsx",
     creatingDirection: "./src/pixi/creatingDirection.tsx",
     identifyingDirection: "./src/pixi/identifyingDirection.tsx",
+    understandingNarrative: "./src/pixi/understandingNarrative.tsx",
     three: "./src/three/three.ts",
   },
   output: {

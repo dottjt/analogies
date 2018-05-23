@@ -81,7 +81,7 @@ export const constantDistribution = (distribution: number[]): number[] => distri
 //   let totalConstant = distribution.reduce((acc, item) => acc + item, 0);
   
 //   for (let i = 0; i < numberOfElements; i++) {
-//     distribution[i] = Math.floor(CONSTANT.elementTotal * (distribution[i] / totalConstant));
+//     distribution[i] = Math.floor(CONSTANT.brainElementTotal * (distribution[i] / totalConstant));
 //   };
   
 //   let lastIndex = distribution.length-1

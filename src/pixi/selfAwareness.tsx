@@ -1,37 +1,20 @@
-// import ReactDOM from 'react-dom';
-// import React from 'react';
-// import { ChecklistFullContainer, ChecklistPartialContainer, ChecklistItemAnnotation } from './react/Checklist.jsx';
-// import { BrainGraph, runAnimation } from './helpers/functions';
+// import * as ReactDOM from 'react-dom';
+// import * as React from 'react';
+// import { ChecklistFullContainer, ChecklistPartialContainer, ChecklistItemAnnotation } from './react/Checklist';
 // import { createCube, createCrazyCube } from '../three/three';
-// import * as REDUX from './helpers/redux';
-// import BrainGraphIndex from './react';
+import { createBrainGraph } from './helpers/brain';
+import * as REDUX from './helpers/reduxBrain';
 
 // EXTERNAL COMPONENTS
 
+
 // GRAPH COMPONENTS
-// BrainGraph("selfAwareness", REDUX.selfAwareness);
+createBrainGraph("selfAwareness", REDUX.selfAwareness);
+createBrainGraph("selfAwarenessGraph", REDUX.selfAwarenessGraph);
 
-// let normalBrain = BrainGraph("normalBrain", REDUX.selfAwarenessGraph);
-//     normalBrain.app.ticker.add(() => {
-//       normalBrain = runAnimation(normalBrain);
-//     });
-
-
-
-// new BrainGraph("normalBrain", HELPERS.options(HELPERS.normalBrain, {
-//   hasControlPanel: true,
-  
-//   changeSpeed: true,
-//   organiseDirection: true,
-//   // createDirection: true,
-//   singleOutDirection: true,
-//   balanceClarity: true,
-// }));
-
-
-// new BrainGraph("selectiveClarityBrainSlower", HELPERS.options(HELPERS.selectiveClarityBrain, { speed: 500 }));
-// new BrainGraph("TOJBrain", HELPERS.TOJBrain);
-// new BrainGraph("normalBrainSlower", HELPERS.options(HELPERS.normalBrain, { speed: 400 }));
-// new BrainGraph("emptySectionBrain", HELPERS.emptySectionBrain);
-// new BrainGraph("selectiveClarityBrain", HELPERS.selectiveClarityBrain);
-// new BrainGraph("mentalIllnessBrain", HELPERS.mentalIllnessBrain);
+createBrainGraph("selectiveClarityBrainSlower", REDUX.options(REDUX.selectiveClarityBrain, { speed: 500 }));
+createBrainGraph("TOJBrain", REDUX.TOJBrain);
+createBrainGraph("normalBrainSlower", REDUX.options(REDUX.normalBrain, { speed: 400 }));
+createBrainGraph("emptySectionBrain", REDUX.emptySectionBrain);
+createBrainGraph("selectiveClarityBrain", REDUX.selectiveClarityBrain);
+createBrainGraph("mentalIllnessBrain", REDUX.mentalIllnessBrain);
