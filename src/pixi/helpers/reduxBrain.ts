@@ -1,6 +1,6 @@
 
 import * as CONSTANT from '../helpers/constants';
-import * as HELPERS from '../helpers/helpers';
+import * as HELPERS from '../helpers/helpersBrain';
 
 import { AnyAction } from 'redux';
 import { IHelpers } from './types';

@@ -72,16 +72,21 @@ declare module IHelpers {
     readonly hasControlPanel: boolean,
 
     readonly colour: number[],
-    readonly colourFunction: { (valueArray: number[], _index: number, _randomIndex: number, _rateOfChange: number): number; } [],
+    readonly colourFunction: { (valueArray: number[], _index: number, _distributionArray: number[], _randomIndex: number, _rateOfChange: number): number; } [],
     
     readonly xPosition: number[],
-    readonly xPositionFunction: { (valueArray: number[], _index: number, _randomIndex: number, _rateOfChange: number): number; } [],
+    readonly xPositionFunction: { (currentXPosition: number, valueArray: number[], _index: number, _distributionArray: number[], _randomIndex: number, _rateOfChange: number): number; } [],
     
     readonly yPosition: number[],
-    readonly yPositionFunction: { (valueArray: number[], _index: number, _randomIndex: number, _rateOfChange: number): number; } [],
+    readonly yPositionFunction: { (currentYPosition: number, valueArray: number[], _index: number, _distributionArray: number[], _randomIndex: number, _rateOfChange: number): number; } [],
     
     readonly lineThickness: number[],
-    readonly lineThicknessFunction: { (valueArray: number[], _index: number, _randomIndex: number, _rateOfChange: number): number; } [],
+    readonly lineThicknessFunction: { (valueArray: number[], _index: number, _distributionArray: number[], _randomIndex: number, _rateOfChange: number): number; } [],
+
+    readonly distribution: number[],
+    readonly distributionFunction: { (n: number[]): number[] } [],
+
+    readonly behaviour: number[],
 
     readonly speed: number[],
     readonly speedFunction: { (speed: number[], change: number): number } [],

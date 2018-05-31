@@ -30,8 +30,10 @@ export const brainHeightPostConstantTiny = 0.02;
 // NARRATIVE CONSTANTS
 
 export const narrativeStandardSpeed = 75;
+export const narrativeStandardXPositionIncrease = 2;
+export const narrativeStandardYPositionIncrease = 0;
 
-export const narrativeStandardLineThickness = 1;
+export const narrativeStandardLineThickness = 3;
 
 export const narrativeXPositionConstant = 0;
-export const narrativeYPositionConstant = 75;
+export const narrativeYPositionConstant = 80;

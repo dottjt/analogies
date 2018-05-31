@@ -11,7 +11,8 @@ module.exports = {
   entry: {
     styles: "./src/styles/styles.js",
     introduction: "./src/pixi/introduction.tsx",
-    selfAwareness: "./src/pixi/selfAwareness.tsx",
+    thisIsYourBrain: "./src/pixi/thisIsYourBrain.tsx",
+    thisIsSelfAwareness: "./src/pixi/thisIsSelfAwareness.tsx",
     creatingDirection: "./src/pixi/creatingDirection.tsx",
     identifyingDirection: "./src/pixi/identifyingDirection.tsx",
     understandingNarrative: "./src/pixi/understandingNarrative.tsx",

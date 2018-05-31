@@ -18,7 +18,7 @@ export const createGraphApp = (domElement: Element, childType: String, child: an
       break;
 
     case "narrative":
-      container.addChild(child);
+      container.addChild(child());
       break;
 
     default: 
@@ -74,7 +74,7 @@ export const runAnimationOnce = (graph: IHelpers.BrainGraph | IHelpers.Narrative
   return graph;
 }
 
-export const attachGraphIfInViewPort = (hasGraph: boolean, domElement: Element | null, createGraphFunction: (index: number) => PIXI.Sprite, graphType: String): PIXI.Application | null => {
+export const attachGraphIfInViewPort = (hasGraph: boolean, domElement: Element | null, createGraphFunction: (index: number) => PIXI.Sprite | PIXI.Graphics, graphType: String): PIXI.Application | null => {
   if (domElement) {
     if (isElementInViewport(domElement)) {
       return createGraphApp(domElement, graphType, createGraphFunction);
@@ -84,7 +84,7 @@ export const attachGraphIfInViewPort = (hasGraph: boolean, domElement: Element |
 }
 
                                                                                                                                                                                     // setting 'store' to any is the only way to make this work.
-export const showElement = (graph: IHelpers.BrainGraph | IHelpers.NarrativeGraph, createGraphFunction: (index: number) => PIXI.Sprite, graphLoopFunction: (container: PIXI.Container, store: any, previousTime: number, previousTimeComparison: Moment) => { previousTime: number, previousTimeComparison: Moment }, graphType: String): IHelpers.BrainGraph | IHelpers.NarrativeGraph => {
+export const showElement = (graph: IHelpers.BrainGraph | IHelpers.NarrativeGraph, createGraphFunction: (index: number) => PIXI.Sprite | PIXI.Graphics, graphLoopFunction: (container: PIXI.Container, store: any, previousTime: number, previousTimeComparison: Moment) => { previousTime: number, previousTimeComparison: Moment }, graphType: String): IHelpers.BrainGraph | IHelpers.NarrativeGraph => {
   
   if (graph.domElement) {
 

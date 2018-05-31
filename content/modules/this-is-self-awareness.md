@@ -1,5 +1,5 @@
 +++
-title = "Self-awareness"
+title = "This is self-awareness"
 date = 2018-04-27T06:17:32+10:00
 draft = false
 +++
@@ -135,5 +135,5 @@ draft = false
   </div>  
  </div>
 
-<script src="/assets/selfAwareness.js"></script>
+<script src="/assets/thisIsSelfAwareness.js"></script>
 <script src="/assets/styles.js"></script>

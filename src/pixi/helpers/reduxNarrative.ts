@@ -1,6 +1,6 @@
 
 import * as CONSTANT from '../helpers/constants';
-import * as HELPERS from '../helpers/helpers';
+import * as HELPERS from '../helpers/helpersNarrative';
 
 import { AnyAction } from 'redux';
 import { IHelpers } from './types';
@@ -27,16 +27,20 @@ export const normalNarrative: IHelpers.NarrativeOptions = {
   colour: [ CONSTANT.standardColour ], // '0x4cfeb1'
   colourFunction: [ HELPERS.constantNumberValue ],
 
-  xPosition: [], 
-  xPositionFunction: [],
+  xPosition: [ CONSTANT.narrativeStandardXPositionIncrease ],
+  xPositionFunction: [ HELPERS.incrementPosition ],
 
-  yPosition: [],
-  yPositionFunction: [],
+  yPosition: [ CONSTANT.narrativeStandardYPositionIncrease ],
+  yPositionFunction: [ HELPERS.incrementPosition ],
   
-  lineThickness: [],
-  lineThicknessFunction: [],
+  lineThickness: [ CONSTANT.narrativeStandardLineThickness ],
+  lineThicknessFunction: [ HELPERS.constantNumberValue ],
 
   speed: [ CONSTANT.narrativeStandardSpeed ], // 50
   speedFunction: [ HELPERS.constantSpeed ],
 
+  distribution: [ 0, 66, 132, 200 ], // even distribution
+  distributionFunction: [ HELPERS.constantDistribution ],
+
+  behaviour: [1],
 };

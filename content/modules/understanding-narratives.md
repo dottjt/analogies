@@ -34,3 +34,7 @@ draft = false
     <h1>This is a narrative.</h1>
   </div>
 </div>
+
+
+<script src="/assets/understandingNarrative.js"></script>
+<script src="/assets/styles.js"></script>
