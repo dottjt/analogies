@@ -1,6 +1,6 @@
 # analogies.io
 
-The successor to Character Jump.
+The successor to [Character Jump](https://github.com/dottjt/CharacterJumpTwo).
 
 Basically, what I was finding was that I was writing an incredibly extensive how-to guide, in addition to the software - which purposefully defeated the point of even having software within the first place.
 
